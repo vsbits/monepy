@@ -1,0 +1,20 @@
+[project]
+name = "currency"
+version = "0.1"
+authors = [{ name = "Vítor dos Santos Araujo", email = "vitoraraujo@tuta.com" }]
+readme = "README.md"
+dynamic = ["dependencies"]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+
+[project.optional-dependencies]
+tests = ["flake8", "mypy", "pytest", "pytest-cov"]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
