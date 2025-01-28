@@ -2,6 +2,7 @@ from currency.base import _Currency
 from currency.currencies import BRL, EUR, USD
 import pytest
 
+
 class TestBRL:
     def test_mul(self):
         v = BRL(100)

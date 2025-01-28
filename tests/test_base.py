@@ -1,6 +1,7 @@
 import pytest
 from currency.base import _Currency
 
+
 class TestCurrency:
     def test_init(self):
         v = _Currency(1)

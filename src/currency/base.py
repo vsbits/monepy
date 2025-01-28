@@ -1,5 +1,6 @@
 from typing import Self, Union, overload
 
+
 class _Currency:
     """Class to reprensent a currency.
     Should not be direcly instanciated."""
