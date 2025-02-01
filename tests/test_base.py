@@ -1,44 +1,117 @@
 import pytest
-from currency.base import _Currency
 
 
 class TestCurrency:
-    def test_init(self):
-        v = _Currency(1)
-        assert v.value == 1
-
     @pytest.mark.parametrize(
-        ["value", "result"],
+        ["value", "expected"],
         [
-            [1, 101],
-            [2, 102],
-            [-10, 90]
+            [1, 1],
+            [1.0, 1],
+            [-0.1, -0.1]
         ]
     )
-    def test_sum(self, value, result):
-        total = _Currency(100) + _Currency(value)
-        assert total.value == result
+    def test_init(self, generic_currency, value, expected):
+        v = generic_currency(value)
+        assert v.value == expected * 10 ** generic_currency.subunit_size
+
+    @pytest.mark.parametrize("value", ["1", 0.33])
+    def test_init_exception(self, generic_currency, value):
+        with pytest.raises(ValueError):
+            _ = generic_currency(value)
+
+    @pytest.mark.parametrize("value", [1, -1])
+    def test_new_from_subunit(self, generic_currency, value):
+        v = generic_currency._new_from_subunit(value)
+        assert v.value == value
+
+    @pytest.mark.parametrize("value", ["1", 1.1111])
+    def test_exception_new_from_subunit(self, generic_currency, value):
+        with pytest.raises(TypeError):
+            _ = generic_currency._new_from_subunit(value)
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"],
+        [
+            [1, 2, 3],
+            [1.5, 1.5, 3],
+            [0, 0, 0]
+        ]
+    )
+    def test_sum(self, generic_currency, value1, value2, result):
+        total = generic_currency(value1) + generic_currency(value2)
+        print(generic_currency(value2).value)
+        assert total.value == result * 10 ** generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sum", [1, 1.0, "1"])
-    def test_sum_wrong_type(self, to_sum):
-        v = _Currency(1)
+    def test_sum_wrong_type(self, generic_currency, to_sum):
+        v = generic_currency(1)
         with pytest.raises(TypeError):
             _ = v + to_sum
 
     @pytest.mark.parametrize(
-        ["value", "result"],
+        ["value1", "value2", "result"],
         [
-            [1, 99],
-            [200, -100],
-            [50, 50]
+            [100, 1, 99],
+            [100, 200, -100],
+            [100, 0.1, 99.9]
         ]
     )
-    def test_sub(self, value, result):
-        total = _Currency(100) - _Currency(value)
-        assert total.value == result
+    def test_sub(self, generic_currency, value1, value2, result):
+        total = generic_currency(value1) - generic_currency(value2)
+        assert total.value == result * 10 ** generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sub", [1, 1.0, "1"])
-    def test_sub_wrong_type(self, to_sub):
-        v = _Currency(1)
+    def test_sub_wrong_type(self, generic_currency, to_sub):
+        v = generic_currency(1)
         with pytest.raises(TypeError):
             _ = v - to_sub
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"],
+        [
+            [1, 2, 2],
+            [1, 2.0, 2],
+            [1, -1, -1]
+        ]
+    )
+    def test_mul(self, generic_currency, value1, value2, result):
+        v = generic_currency(value1)
+        total = v * value2
+        assert total.value == result * 10 ** generic_currency.subunit_size
+
+    def test_mul_wrong_type(self, generic_currency):
+        v = generic_currency(1)
+        with pytest.raises(TypeError):
+            _ = v * "1"
+        with pytest.raises(TypeError):
+            _ = v * v
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"],
+        [
+            [1, 1, 1],
+            [1, 2.0, 0.5],
+            [1, 3, 0.3],
+            [1, -2, -0.5],
+        ]
+    )
+    def test_truediv(self, generic_currency, value1, value2, result):
+        v = generic_currency(value1)
+        value = (v / value2).value
+        assert value == int(result * 10 ** generic_currency.subunit_size)
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"],
+        [
+            [1, 1, 1.0],
+            [10, 5, 2.0],
+            [1, 2, 0.5],
+            [1, -1, -1.0],
+        ]
+    )
+    def test_truediv_class(self, generic_currency, value1, value2, result):
+        v = generic_currency(value1)
+        div = generic_currency(value2)
+
+        value = v / div
+        assert value == result

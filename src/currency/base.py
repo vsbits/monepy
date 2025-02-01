@@ -1,4 +1,5 @@
 from typing import Self, Union, overload
+from decimal import Decimal
 
 
 class _Currency:
@@ -14,8 +15,22 @@ class _Currency:
     subunit_size: int
     subunit_sep: str
 
-    def __init__(self, value: int):
-        self.value = value
+    def __init__(self, value: Union[int, float]):
+        if isinstance(value, int):
+            self.value = value * 10**self.subunit_size
+        elif isinstance(value, float):
+            decimal_places = Decimal(str(value)).as_tuple().exponent
+            if isinstance(decimal_places, int) and (
+                -decimal_places <= self.subunit_size
+            ):
+                self.value = int(value * 10**self.subunit_size)
+            else:
+                raise ValueError(
+                    f"invalid value <{value}>. {type(self)} suports only"
+                    f" {self.subunit_size} decimal places"
+                )
+        else:
+            raise ValueError(f"invalid value for {type(self)} <{type(value)}>")
 
     def __str__(self) -> str:
         chars = str(abs(self.value)).zfill(self.subunit_size + 1)
@@ -41,7 +56,8 @@ class _Currency:
 
     def __add__(self, other: Self) -> Self:
         if other.__class__ == self.__class__:
-            return self.__class__(self.value + other.value)
+            result = self.value + other.value
+            return self.__class__._new_from_subunit(result)
         raise TypeError(
             "Can't add objects of type "
             f"{self.__class__} and {other.__class__}"
@@ -49,7 +65,8 @@ class _Currency:
 
     def __sub__(self, other: Self) -> Self:
         if other.__class__ == self.__class__:
-            return self.__class__(self.value - other.value)
+            result = self.value - other.value
+            return self._new_from_subunit(result)
         raise TypeError(
             "Can't subtract objects of type "
             f"{self.__class__} and {other.__class__}"
@@ -57,7 +74,8 @@ class _Currency:
 
     def __mul__(self, other: Union[int, float]) -> Self:
         if other.__class__ in (int, float):
-            return self.__class__(int(self.value * other))
+            result = int(self.value * other)
+            return self.__class__._new_from_subunit(result)
         raise TypeError(
             "Can't multiply objects of type "
             f"{self.__class__} and {other.__class__}"
@@ -77,11 +95,19 @@ class _Currency:
         ):
             return self.value / other.value
         elif isinstance(other, float) or isinstance(other, int):
-            return self.__class__(int(self.value / other))
+            div = int(self.value / other)
+            return self.__class__._new_from_subunit(div)
         raise TypeError(
             "Can't divide objects of type "
             f"{self.__class__} by {other.__class__}"
         )
+
+    @classmethod
+    def _new_from_subunit(cls, value: int) -> Self:
+        if isinstance(value, int):
+            conversion = value / 10**cls.subunit_size
+            return cls(conversion)
+        raise TypeError(f"Invalid type for subunit value: {type(value)}")
 
     def formatted(self) -> str:
         sep = " " if self.symbol_space else ""

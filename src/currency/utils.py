@@ -31,4 +31,4 @@ def sum_(items: Sequence[C]) -> C:
             )
         acc += item.value
 
-    return cls(acc)
+    return cls._new_from_subunit(acc)
