@@ -130,6 +130,12 @@ class _Currency:
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
 
+    def __neg__(self) -> Self:
+        return self._new_from_subunit(-self._value)
+
+    def __abs__(self) -> Self:
+        return self._new_from_subunit(abs(self._value))
+
     def __add__(self, other: Self) -> Self:
         if self._is_same_currency(other):
             result = self._value + other._value
@@ -170,6 +176,24 @@ class _Currency:
             return self._new_from_subunit(div)
         raise TypeError(
             f"Can't divide objects of type {self.__class__} by {other.__class__}"
+        )
+
+    def __mod__(self, other: Union[int, float]) -> Self:
+        if isinstance(other, (float, int)):
+            abs_s, abs_o = abs(self), abs(other)
+            result = abs_s / abs_o
+            diff = abs_s - (result * abs_o)
+            if other < 0:
+                return -diff
+            else:
+                return diff
+        raise TypeError(
+            f"Can't divide objects of type {self.__class__} by {other.__class__}"
+        )
+
+    def __floordiv__(self):
+        raise NotImplementedError(
+            f"// operator not available for <{self.__class__.__name__}> class"
         )
 
     @classmethod

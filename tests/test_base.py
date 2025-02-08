@@ -286,6 +286,35 @@ class TestOperators:
         value = v / div
         assert value == result
 
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"],
+        [
+            [1.1, 2, 0.1],
+            [1, 2.0, 0],
+            [1.9, 4, 0.3],
+            [0.3, -2, -0.1],
+            [-1.1, -2, -0.1],
+            [-1.1, 2, 0.1],
+        ],
+    )
+    def test_mod(self, generic_currency, value1, value2, result):
+        v = generic_currency(value1)
+        value = v % value2
+        assert isinstance(value, generic_currency)
+        assert value == result
+
+    def test_mod_class(self, generic_currency):
+        v = generic_currency(1)
+        with pytest.raises(TypeError):
+            _ = v % v
+
+    def test_floordiv(self, generic_currency):
+        v = generic_currency(10)
+        with pytest.raises(TypeError):
+            _ = v // 1
+        with pytest.raises(NotImplementedError):
+            _ = v.__floordiv__()
+
 
 class TestOperatorsDifferentCurrencies:
     def test_eq(self, generic_currency, other_generic_currency):
