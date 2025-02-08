@@ -55,6 +55,9 @@ class _Currency:
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} {self.__str__()}>"
 
+    def __hash__(self) -> int:
+        return hash((self.__class__.__name__, self.value))
+
     def __eq__(self, other: object) -> bool:
         if self._is_currency(other):
             if self._is_same_currency(other) and isinstance(
@@ -65,7 +68,7 @@ class _Currency:
                 raise NotImplementedError(
                     f"Can't compare objects of classes {type(self)} and {type(other)}"
                 )
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             return self.value / (10**self.subunit_size) == other
         return False
 
@@ -75,7 +78,7 @@ class _Currency:
                 other, self.__class__
             ):
                 return self.value > other.value
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             return self.value / (10**self.subunit_size) > other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
@@ -87,7 +90,7 @@ class _Currency:
                 other, self.__class__
             ):
                 return self.value >= other.value
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             return self.value / (10**self.subunit_size) >= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
@@ -99,7 +102,7 @@ class _Currency:
                 other, self.__class__
             ):
                 return self.value < other.value
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             return self.value / (10**self.subunit_size) < other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
@@ -111,7 +114,7 @@ class _Currency:
                 other, self.__class__
             ):
                 return self.value <= other.value
-        elif isinstance(other, int) or isinstance(other, float):
+        elif isinstance(other, (int, float)):
             return self.value / (10**self.subunit_size) <= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
@@ -134,7 +137,7 @@ class _Currency:
         )
 
     def __mul__(self, other: Union[int, float]) -> Self:
-        if other.__class__ in (int, float):
+        if isinstance(other, (int, float)):
             result = int(self.value * other)
             return self._new_from_subunit(result)
         raise TypeError(
@@ -152,7 +155,7 @@ class _Currency:
     ) -> Union[Self, float]:
         if isinstance(other, self.__class__) and self._is_same_currency(other):
             return self.value / other.value
-        elif isinstance(other, float) or isinstance(other, int):
+        elif isinstance(other, (float, int)):
             div = int(self.value / other)
             return self._new_from_subunit(div)
         raise TypeError(

@@ -24,6 +24,37 @@ class TestCurrency:
         with pytest.raises(TypeError):
             _ = generic_currency._new_from_subunit(value)
 
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, 1, False],
+        ],
+    )
+    def test_hash_dif_value(self, generic_currency, value1, value2, expected):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (hash(v1) == hash(v2)) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, False],
+            [-1, 1, False],
+        ],
+    )
+    def test_hash_dif_currency(
+        self,
+        generic_currency,
+        other_generic_currency,
+        value1,
+        value2,
+        expected,
+    ):
+        v1 = generic_currency(value1)
+        v2 = other_generic_currency(value2)
+        assert (hash(v1) == hash(v2)) is expected
+
 
 class TestOperators:
     @pytest.mark.parametrize(
