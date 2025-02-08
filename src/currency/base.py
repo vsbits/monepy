@@ -1,4 +1,4 @@
-from typing import Self, Union, overload
+from typing import Self, Union, overload, Optional, Any
 from decimal import Decimal
 
 
@@ -13,7 +13,7 @@ class _Currency:
     symbol_begining: bool
     thousand_sep: str
     subunit_size: int
-    subunit_sep: str
+    subunit_sep: Optional[str]
 
     def __init__(self, value: Union[int, float]):
         if isinstance(value, int):
@@ -40,7 +40,8 @@ class _Currency:
         for i, n in enumerate(rev, 0):
 
             if i == self.subunit_size:
-                value_as_str = self.subunit_sep + value_as_str
+                if self.subunit_sep is not None:
+                    value_as_str = self.subunit_sep + value_as_str
 
             elif (i - self.subunit_size) % 3 == 0:
                 value_as_str = self.thousand_sep + value_as_str

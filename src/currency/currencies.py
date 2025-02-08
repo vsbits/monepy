@@ -26,3 +26,12 @@ class USD(_Currency):
     thousand_sep = ","
     subunit_size = 2
     subunit_sep = "."
+
+
+class JPY (_Currency):
+    symbol = "¥"
+    symbol_space = False
+    symbol_begining = True
+    thousand_sep = ","
+    subunit_size = 0
+    subunit_sep = None
