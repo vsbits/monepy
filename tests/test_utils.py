@@ -1,5 +1,4 @@
 from currency.utils import sum_
-from currency.currencies import BRL, USD
 import pytest
 
 
@@ -12,8 +11,8 @@ class TestSum:
         assert total.__class__ == generic_currency
         assert total.value == 30
 
-    def test_wrong_types_sum(self):
-        values = [BRL(1), USD(1)]
+    def test_wrong_types_sum(self, generic_currency, other_generic_currency):
+        values = [generic_currency(1), other_generic_currency(1)]
         with pytest.raises(ValueError):
             _ = sum_(values)
 

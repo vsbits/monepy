@@ -13,3 +13,16 @@ def generic_currency():
         subunit_sep = "."
 
     yield Generic
+
+
+@pytest.fixture()
+def other_generic_currency():
+    class OtherGeneric(_Currency):
+        symbol = "OTH"
+        symbol_space = True
+        symbol_begining = False
+        thousand_sep = " "
+        subunit_size = 2
+        subunit_sep = ","
+
+    yield OtherGeneric

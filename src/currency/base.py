@@ -38,7 +38,6 @@ class _Currency:
         rev.reverse()
         value_as_str = ""
         for i, n in enumerate(rev, 0):
-
             if i == self.subunit_size:
                 if self.subunit_sep is not None:
                     value_as_str = self.subunit_sep + value_as_str
@@ -55,17 +54,32 @@ class _Currency:
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} {self.__str__()}>"
 
+    def __eq__(self, other: object) -> bool:
+        if self._is_currency(other):
+            if self._is_same_currency(other) and isinstance(
+                other, self.__class__
+            ):
+                return self.value == other.value
+            else:
+                raise NotImplementedError(
+                    "Can't compare objects of classes "
+                    f"{type(self)} and {type(other)}"
+                )
+        elif isinstance(other, int) or isinstance(other, float):
+            return self.value / (10**self.subunit_size) == other
+        return False
+
     def __add__(self, other: Self) -> Self:
-        if other.__class__ == self.__class__:
+        if self._is_same_currency(other):
             result = self.value + other.value
-            return self.__class__._new_from_subunit(result)
+            return self._new_from_subunit(result)
         raise TypeError(
             "Can't add objects of type "
             f"{self.__class__} and {other.__class__}"
         )
 
     def __sub__(self, other: Self) -> Self:
-        if other.__class__ == self.__class__:
+        if self._is_same_currency(other):
             result = self.value - other.value
             return self._new_from_subunit(result)
         raise TypeError(
@@ -76,7 +90,7 @@ class _Currency:
     def __mul__(self, other: Union[int, float]) -> Self:
         if other.__class__ in (int, float):
             result = int(self.value * other)
-            return self.__class__._new_from_subunit(result)
+            return self._new_from_subunit(result)
         raise TypeError(
             "Can't multiply objects of type "
             f"{self.__class__} and {other.__class__}"
@@ -91,13 +105,11 @@ class _Currency:
     def __truediv__(
         self, other: Union[Self, int, float]
     ) -> Union[Self, float]:
-        if isinstance(other, self.__class__) and (
-            other.__class__ == self.__class__
-        ):
+        if isinstance(other, self.__class__) and self._is_same_currency(other):
             return self.value / other.value
         elif isinstance(other, float) or isinstance(other, int):
             div = int(self.value / other)
-            return self.__class__._new_from_subunit(div)
+            return self._new_from_subunit(div)
         raise TypeError(
             "Can't divide objects of type "
             f"{self.__class__} by {other.__class__}"
@@ -116,3 +128,12 @@ class _Currency:
             return f"{self.symbol}{sep}{self.__str__()}"
         else:
             return f"{self.__str__()}{sep}{self.symbol}"
+
+    def _is_same_currency(self, other: Any) -> bool:
+        return self.__class__.__mro__ == other.__class__.__mro__
+
+    @classmethod
+    def _is_currency(cls, other: Any) -> bool:
+        return all(
+            x in other.__class__.__dict__.keys() for x in cls.__dict__.keys()
+        )

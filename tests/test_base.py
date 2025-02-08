@@ -29,6 +29,44 @@ class TestCurrency:
         with pytest.raises(TypeError):
             _ = generic_currency._new_from_subunit(value)
 
+
+class TestOperators:
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, -1, True],
+            [1, -1, False],
+            [1, 2, False],
+        ]
+    )
+    def test_eq(self, generic_currency, value1, value2, expected):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (v1 == v2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [1, 1.0, True],
+            [1.1, 1, False],
+            [1, 2, False],
+            [1, -1, False],
+            [1, "abc", False],
+            [1, "1", False]
+        ]
+    )
+    def test_eq_meric(self, generic_currency, value1, value2, expected):
+        v = generic_currency(value1)
+        assert (v == value2) is expected
+
+    def test_eq_different_currencies(
+        self, generic_currency, other_generic_currency
+    ):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) == other_generic_currency(1)
+
     @pytest.mark.parametrize(
         ["value1", "value2", "result"],
         [
