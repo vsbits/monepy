@@ -18,6 +18,7 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "furo"
+html_show_sourcelink = False
 
 # -- Path setup --------------------------------------------------------------
 
