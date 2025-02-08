@@ -5,6 +5,7 @@ from decimal import Decimal
 class _Currency:
     """Class to reprensent a currency.
     Should not be direcly instanciated."""
+
     value: int
     """Stored value in the smallest unit for the selected currency.
     e.g.: cents for USD"""
@@ -62,8 +63,7 @@ class _Currency:
                 return self.value == other.value
             else:
                 raise NotImplementedError(
-                    "Can't compare objects of classes "
-                    f"{type(self)} and {type(other)}"
+                    f"Can't compare objects of classes {type(self)} and {type(other)}"
                 )
         elif isinstance(other, int) or isinstance(other, float):
             return self.value / (10**self.subunit_size) == other
@@ -74,8 +74,7 @@ class _Currency:
             result = self.value + other.value
             return self._new_from_subunit(result)
         raise TypeError(
-            "Can't add objects of type "
-            f"{self.__class__} and {other.__class__}"
+            f"Can't add objects of type {self.__class__} and {other.__class__}"
         )
 
     def __sub__(self, other: Self) -> Self:
@@ -83,8 +82,7 @@ class _Currency:
             result = self.value - other.value
             return self._new_from_subunit(result)
         raise TypeError(
-            "Can't subtract objects of type "
-            f"{self.__class__} and {other.__class__}"
+            f"Can't subtract objects of type {self.__class__} and {other.__class__}"
         )
 
     def __mul__(self, other: Union[int, float]) -> Self:
@@ -92,8 +90,7 @@ class _Currency:
             result = int(self.value * other)
             return self._new_from_subunit(result)
         raise TypeError(
-            "Can't multiply objects of type "
-            f"{self.__class__} and {other.__class__}"
+            f"Can't multiply objects of type {self.__class__} and {other.__class__}"
         )
 
     @overload
@@ -111,8 +108,7 @@ class _Currency:
             div = int(self.value / other)
             return self._new_from_subunit(div)
         raise TypeError(
-            "Can't divide objects of type "
-            f"{self.__class__} by {other.__class__}"
+            f"Can't divide objects of type {self.__class__} by {other.__class__}"
         )
 
     @classmethod

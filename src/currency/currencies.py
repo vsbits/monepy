@@ -28,7 +28,7 @@ class USD(_Currency):
     subunit_sep = "."
 
 
-class JPY (_Currency):
+class JPY(_Currency):
     symbol = "¥"
     symbol_space = False
     symbol_begining = True
