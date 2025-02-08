@@ -2,16 +2,24 @@
 
 [![tests](https://github.com/vsbits/currency/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/currency/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/vsbits/currency/graph/badge.svg?token=8mHqn1neMk)](https://codecov.io/gh/vsbits/currency)
+[![CodeFactor](https://www.codefactor.io/repository/github/vsbits/currency/badge)](https://www.codefactor.io/repository/github/vsbits/currency)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/vsbits/currency/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/currency/blob/main/LICENSE)
 
 A python package that implements currency classes to work with monetary values.
+
+## Install
+
+From github using `pip`:
+
+```
+pip install git+https://github.com/vsbits/currency
+```
 
 ## Behavior
 
 The currency classes behave like a numeric type, with a `formatted()` method
 that returns the value in the currency format:
-
 
 ```
 >>> from currency import USD
@@ -84,7 +92,6 @@ The `%` is only supports numeric values
 >>> x % 15
 <USD 0.10>
 ```
-
 
 ### Pandas integration
 

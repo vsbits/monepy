@@ -4,8 +4,8 @@ from pathlib import Path
 # -- Project information -----------------------------------------------------
 
 project = "Currency"
-copyright = "2025, Vítor Araujo"
-author = "Vítor Araujo"
+copyright = "2025, Vítor dos Santos Araujo"
+author = "Vítor dos Santos Araujo"
 release = "0.1"
 
 # -- General configuration ---------------------------------------------------
