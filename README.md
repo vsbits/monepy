@@ -35,8 +35,6 @@ be raised.
 
 Only supported operators are `+`, `-`, `*` and `/`.
 
-Operations with unsuported types will raise a `TypeError`.
-
 #### The `+` and `-`
 
 Operations with `+` and `-` can only be done with currencies of the same type
