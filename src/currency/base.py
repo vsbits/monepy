@@ -4,17 +4,31 @@ from decimal import Decimal
 
 class _Currency:
     """Class to reprensent a currency.
+
     Should not be direcly instanciated."""
 
     _value: int
     """Stored value in the smallest unit for the selected currency.
+
     e.g.: cents for USD"""
     symbol: str
+    """Symbol used to represent the formatted currency.
+
+    '$', '€', '¥' etc"""
     symbol_space: bool
+    """Tells if there should me a space separating the symbol from the value"""
     symbol_begining: bool
+    """Tells if the symbol should be before the value, otherwise is appended
+    at the end."""
     thousand_sep: str
+    """Character used to separate each thousant unit"""
     subunit_size: int
+    """How many significant digits the currency has for its subunit
+    
+    e.g: 2 for EUR (1,00 €) and 0 for JPY (¥ 1)"""
     subunit_sep: Optional[str]
+    """Character used to separate currency unit form subunit. None if
+    `subunit_sep == 0`."""
 
     def __init__(self, value: Union[int, float]):
         """Instatiates a new Currency object
