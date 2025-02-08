@@ -6,7 +6,7 @@ class _Currency:
     """Class to reprensent a currency.
     Should not be direcly instanciated."""
 
-    value: int
+    _value: int
     """Stored value in the smallest unit for the selected currency.
     e.g.: cents for USD"""
     symbol: str
@@ -18,13 +18,13 @@ class _Currency:
 
     def __init__(self, value: Union[int, float]):
         if isinstance(value, int):
-            self.value = value * 10**self.subunit_size
+            self._value = value * 10**self.subunit_size
         elif isinstance(value, float):
             decimal_places = Decimal(str(value)).as_tuple().exponent
             if isinstance(decimal_places, int) and (
                 -decimal_places <= self.subunit_size
             ):
-                self.value = int(value * 10**self.subunit_size)
+                self._value = int(value * 10**self.subunit_size)
             else:
                 raise ValueError(
                     f"invalid value <{value}>. {type(self)} suports only"
@@ -34,7 +34,7 @@ class _Currency:
             raise ValueError(f"invalid value for {type(self)} <{type(value)}>")
 
     def __str__(self) -> str:
-        chars = str(abs(self.value)).zfill(self.subunit_size + 1)
+        chars = str(abs(self._value)).zfill(self.subunit_size + 1)
         rev = [char for char in chars]
         rev.reverse()
         value_as_str = ""
@@ -48,7 +48,7 @@ class _Currency:
 
             value_as_str = n + value_as_str
 
-        if self.value < 0:
+        if self._value < 0:
             value_as_str = "-" + value_as_str
         return value_as_str
 
@@ -56,20 +56,20 @@ class _Currency:
         return f"<{self.__class__.__name__} {self.__str__()}>"
 
     def __hash__(self) -> int:
-        return hash((self.__class__.__name__, self.value))
+        return hash((self.__class__.__name__, self._value))
 
     def __eq__(self, other: object) -> bool:
         if self._is_currency(other):
             if self._is_same_currency(other) and isinstance(
                 other, self.__class__
             ):
-                return self.value == other.value
+                return self._value == other._value
             else:
                 raise NotImplementedError(
                     f"Can't compare objects of classes {type(self)} and {type(other)}"
                 )
         elif isinstance(other, (int, float)):
-            return self.value / (10**self.subunit_size) == other
+            return self._value / (10**self.subunit_size) == other
         return False
 
     def __gt__(self, other: object) -> bool:
@@ -77,9 +77,9 @@ class _Currency:
             if self._is_same_currency(other) and isinstance(
                 other, self.__class__
             ):
-                return self.value > other.value
+                return self._value > other._value
         elif isinstance(other, (int, float)):
-            return self.value / (10**self.subunit_size) > other
+            return self._value / (10**self.subunit_size) > other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -89,9 +89,9 @@ class _Currency:
             if self._is_same_currency(other) and isinstance(
                 other, self.__class__
             ):
-                return self.value >= other.value
+                return self._value >= other._value
         elif isinstance(other, (int, float)):
-            return self.value / (10**self.subunit_size) >= other
+            return self._value / (10**self.subunit_size) >= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -101,9 +101,9 @@ class _Currency:
             if self._is_same_currency(other) and isinstance(
                 other, self.__class__
             ):
-                return self.value < other.value
+                return self._value < other._value
         elif isinstance(other, (int, float)):
-            return self.value / (10**self.subunit_size) < other
+            return self._value / (10**self.subunit_size) < other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -113,16 +113,16 @@ class _Currency:
             if self._is_same_currency(other) and isinstance(
                 other, self.__class__
             ):
-                return self.value <= other.value
+                return self._value <= other._value
         elif isinstance(other, (int, float)):
-            return self.value / (10**self.subunit_size) <= other
+            return self._value / (10**self.subunit_size) <= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
 
     def __add__(self, other: Self) -> Self:
         if self._is_same_currency(other):
-            result = self.value + other.value
+            result = self._value + other._value
             return self._new_from_subunit(result)
         raise TypeError(
             f"Can't add objects of type {self.__class__} and {other.__class__}"
@@ -130,7 +130,7 @@ class _Currency:
 
     def __sub__(self, other: Self) -> Self:
         if self._is_same_currency(other):
-            result = self.value - other.value
+            result = self._value - other._value
             return self._new_from_subunit(result)
         raise TypeError(
             f"Can't subtract objects of type {self.__class__} and {other.__class__}"
@@ -138,7 +138,7 @@ class _Currency:
 
     def __mul__(self, other: Union[int, float]) -> Self:
         if isinstance(other, (int, float)):
-            result = int(self.value * other)
+            result = int(self._value * other)
             return self._new_from_subunit(result)
         raise TypeError(
             f"Can't multiply objects of type {self.__class__} and {other.__class__}"
@@ -154,9 +154,9 @@ class _Currency:
         self, other: Union[Self, int, float]
     ) -> Union[Self, float]:
         if isinstance(other, self.__class__) and self._is_same_currency(other):
-            return self.value / other.value
+            return self._value / other._value
         elif isinstance(other, (float, int)):
-            div = int(self.value / other)
+            div = int(self._value / other)
             return self._new_from_subunit(div)
         raise TypeError(
             f"Can't divide objects of type {self.__class__} by {other.__class__}"

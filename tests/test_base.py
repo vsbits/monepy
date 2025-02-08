@@ -7,7 +7,7 @@ class TestCurrency:
     )
     def test_init(self, generic_currency, value, expected):
         v = generic_currency(value)
-        assert v.value == expected * 10**generic_currency.subunit_size
+        assert v._value == expected * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("value", ["1", 0.33])
     def test_init_exception(self, generic_currency, value):
@@ -17,7 +17,7 @@ class TestCurrency:
     @pytest.mark.parametrize("value", [1, -1])
     def test_new_from_subunit(self, generic_currency, value):
         v = generic_currency._new_from_subunit(value)
-        assert v.value == value
+        assert v._value == value
 
     @pytest.mark.parametrize("value", ["1", 1.1111])
     def test_exception_new_from_subunit(self, generic_currency, value):
@@ -218,8 +218,8 @@ class TestOperators:
     )
     def test_sum(self, generic_currency, value1, value2, result):
         total = generic_currency(value1) + generic_currency(value2)
-        print(generic_currency(value2).value)
-        assert total.value == result * 10**generic_currency.subunit_size
+        print(generic_currency(value2)._value)
+        assert total._value == result * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sum", [1, 1.0, "1"])
     def test_sum_wrong_type(self, generic_currency, to_sum):
@@ -233,7 +233,7 @@ class TestOperators:
     )
     def test_sub(self, generic_currency, value1, value2, result):
         total = generic_currency(value1) - generic_currency(value2)
-        assert total.value == result * 10**generic_currency.subunit_size
+        assert total._value == result * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sub", [1, 1.0, "1"])
     def test_sub_wrong_type(self, generic_currency, to_sub):
@@ -247,7 +247,7 @@ class TestOperators:
     def test_mul(self, generic_currency, value1, value2, result):
         v = generic_currency(value1)
         total = v * value2
-        assert total.value == result * 10**generic_currency.subunit_size
+        assert total._value == result * 10**generic_currency.subunit_size
 
     def test_mul_wrong_type(self, generic_currency):
         v = generic_currency(1)
@@ -267,7 +267,7 @@ class TestOperators:
     )
     def test_truediv(self, generic_currency, value1, value2, result):
         v = generic_currency(value1)
-        value = (v / value2).value
+        value = (v / value2)._value
         assert value == int(result * 10**generic_currency.subunit_size)
 
     @pytest.mark.parametrize(

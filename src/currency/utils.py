@@ -14,6 +14,8 @@ def sum_(items: Sequence[C]) -> C:
     Recieves a sequence of values of the same currency, and returns an instance
     of the same type. Raises error if sequence is empty or contains objects of
     different types.
+
+    :param items: Sequence of objects of same currency
     """
     t = items.__class__
     try:
@@ -29,6 +31,6 @@ def sum_(items: Sequence[C]) -> C:
                 "Sum aborted. "
                 f"{t} contains items of types {cls} and {item.__class__}"
             )
-        acc += item.value
+        acc += item._value
 
     return cls._new_from_subunit(acc)
