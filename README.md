@@ -33,6 +33,12 @@ be raised.
 
 ### Operators
 
+Only supported operators are `+`, `-`, `*` and `/`.
+
+Operations with unsuported types will raise a `TypeError`.
+
+#### The `+` and `-`
+
 Operations with `+` and `-` can only be done with currencies of the same type
 and will return an object of the same currency:
 
@@ -41,9 +47,11 @@ and will return an object of the same currency:
 >>> y = USD(0.1)
 >>> x + y
 <USD 10.10>
+>>> x - y
+<USD 9.90>
 ```
 
-Trying `USD(10) + 1` will raise a `TypeError`.
+#### The `*`
 
 The `*` is only possible with a numeric value:
 
@@ -52,6 +60,31 @@ The `*` is only possible with a numeric value:
 >>> x * 1.23
 <USD 2.44>
 ```
+
+#### The `/`
+The `/` operator is possible with both numeric and a currency of the same type:
+
+```
+>>> x = USD(10)
+>>> x / 2
+<USD 5.00>
+>>> y = USD(3)
+>>> x / y
+3.3333333333333335
+```
+
+#### The `%`
+
+The `%` is only supports numeric values
+
+```
+>>> x = USD(100)
+>>> x / 15
+<USD 6.66>
+>>> x % 15
+<USD 0.10>
+```
+
 
 ### Pandas integration
 
@@ -81,6 +114,10 @@ Currency classes can be used with the [pandas library](https://pandas.pydata.org
   product  price  quantity  subtotal
 0       x  10,00         8     80,00
 1       y   0,99        50     49,50
+2       z  25,00       200  5 000,00
+>>> df[df["price"] >= 10]
+  product  price  quantity  subtotal
+0       x  10,00         8     80,00
 2       z  25,00       200  5 000,00
 >>> total = df["subtotal"].sum()
 >>> print(f"The total is {total.formatted()}.")
