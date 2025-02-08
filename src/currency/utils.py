@@ -3,12 +3,14 @@ from typing import TypeVar, Sequence, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .base import _Currency
+else:
+    _Currency = "_Currency"
 
 
-C = TypeVar("C", bound="_Currency")
+Currency = TypeVar("Currency", bound=_Currency)
 
 
-def sum_(items: Sequence[C]) -> C:
+def sum_(items: Sequence[Currency]) -> Currency:
     """Equivalent to builtin `sum`.
 
     Recieves a sequence of values of the same currency, and returns an instance

@@ -5,12 +5,12 @@ from currency.base import _Currency
 @pytest.fixture()
 def generic_currency():
     class Generic(_Currency):
-        symbol = "GEN"
-        symbol_space = True
-        symbol_begining = True
-        thousand_sep = " "
-        subunit_size = 1
-        subunit_sep = "."
+        _symbol = "GEN"
+        _symbol_space = True
+        _symbol_begining = True
+        _thousand_sep = " "
+        _subunit_size = 1
+        _subunit_sep = "."
 
     yield Generic
 
@@ -18,11 +18,11 @@ def generic_currency():
 @pytest.fixture()
 def other_generic_currency():
     class OtherGeneric(_Currency):
-        symbol = "OTH"
-        symbol_space = True
-        symbol_begining = False
-        thousand_sep = " "
-        subunit_size = 2
-        subunit_sep = ","
+        _symbol = "OTH"
+        _symbol_space = True
+        _symbol_begining = False
+        _thousand_sep = " "
+        _subunit_size = 2
+        _subunit_sep = ","
 
     yield OtherGeneric

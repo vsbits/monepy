@@ -11,22 +11,22 @@ class _Currency:
     """Stored value in the smallest unit for the selected currency.
 
     e.g.: cents for USD"""
-    symbol: str
+    _symbol: str
     """Symbol used to represent the formatted currency.
 
     '$', '€', '¥' etc"""
-    symbol_space: bool
+    _symbol_space: bool
     """Tells if there should me a space separating the symbol from the value"""
-    symbol_begining: bool
+    _symbol_begining: bool
     """Tells if the symbol should be before the value, otherwise is appended
     at the end."""
-    thousand_sep: str
+    _thousand_sep: str
     """Character used to separate each thousant unit"""
-    subunit_size: int
+    _subunit_size: int
     """How many significant digits the currency has for its subunit
     
     e.g: 2 for EUR (1,00 €) and 0 for JPY (¥ 1)"""
-    subunit_sep: Optional[str]
+    _subunit_sep: Optional[str]
     """Character used to separate currency unit form subunit. None if
     `subunit_sep == 0`."""
 
@@ -42,33 +42,33 @@ class _Currency:
 
         :param value: unit value of the currency"""
         if isinstance(value, int):
-            self._value = value * 10**self.subunit_size
+            self._value = value * 10**self._subunit_size
         elif isinstance(value, float):
             decimal_places = Decimal(str(value)).as_tuple().exponent
             if isinstance(decimal_places, int) and (
-                -decimal_places <= self.subunit_size
+                -decimal_places <= self._subunit_size
             ):
-                self._value = int(value * 10**self.subunit_size)
+                self._value = int(value * 10**self._subunit_size)
             else:
                 raise ValueError(
                     f"invalid value <{value}>. {type(self)} suports only"
-                    f" {self.subunit_size} decimal places"
+                    f" {self._subunit_size} decimal places"
                 )
         else:
             raise ValueError(f"invalid value for {type(self)} <{type(value)}>")
 
     def __str__(self) -> str:
-        chars = str(abs(self._value)).zfill(self.subunit_size + 1)
+        chars = str(abs(self._value)).zfill(self._subunit_size + 1)
         rev = [char for char in chars]
         rev.reverse()
         value_as_str = ""
         for i, n in enumerate(rev, 0):
-            if i == self.subunit_size:
-                if self.subunit_sep is not None:
-                    value_as_str = self.subunit_sep + value_as_str
+            if i == self._subunit_size:
+                if self._subunit_sep is not None:
+                    value_as_str = self._subunit_sep + value_as_str
 
-            elif (i - self.subunit_size) % 3 == 0:
-                value_as_str = self.thousand_sep + value_as_str
+            elif (i - self._subunit_size) % 3 == 0:
+                value_as_str = self._thousand_sep + value_as_str
 
             value_as_str = n + value_as_str
 
@@ -93,7 +93,7 @@ class _Currency:
                     f"Can't compare objects of classes {type(self)} and {type(other)}"
                 )
         elif isinstance(other, (int, float)):
-            return self._value / (10**self.subunit_size) == other
+            return self._value / (10**self._subunit_size) == other
         return False
 
     def __gt__(self, other: object) -> bool:
@@ -103,7 +103,7 @@ class _Currency:
             ):
                 return self._value > other._value
         elif isinstance(other, (int, float)):
-            return self._value / (10**self.subunit_size) > other
+            return self._value / (10**self._subunit_size) > other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -115,7 +115,7 @@ class _Currency:
             ):
                 return self._value >= other._value
         elif isinstance(other, (int, float)):
-            return self._value / (10**self.subunit_size) >= other
+            return self._value / (10**self._subunit_size) >= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -127,7 +127,7 @@ class _Currency:
             ):
                 return self._value < other._value
         elif isinstance(other, (int, float)):
-            return self._value / (10**self.subunit_size) < other
+            return self._value / (10**self._subunit_size) < other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -139,7 +139,7 @@ class _Currency:
             ):
                 return self._value <= other._value
         elif isinstance(other, (int, float)):
-            return self._value / (10**self.subunit_size) <= other
+            return self._value / (10**self._subunit_size) <= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -214,7 +214,7 @@ class _Currency:
     @classmethod
     def _new_from_subunit(cls, value: int) -> Self:
         if isinstance(value, int):
-            conversion = value / 10**cls.subunit_size
+            conversion = value / 10**cls._subunit_size
             return cls(conversion)
         raise TypeError(f"Invalid type for subunit value: {type(value)}")
 
@@ -228,11 +228,11 @@ class _Currency:
            >>> BRL(10).formatted()
            'R$ 10,00'
         """
-        sep = " " if self.symbol_space else ""
-        if self.symbol_begining:
-            return f"{self.symbol}{sep}{self.__str__()}"
+        sep = " " if self._symbol_space else ""
+        if self._symbol_begining:
+            return f"{self._symbol}{sep}{self.__str__()}"
         else:
-            return f"{self.__str__()}{sep}{self.symbol}"
+            return f"{self.__str__()}{sep}{self._symbol}"
 
     def _is_same_currency(self, other: Any) -> bool:
         return self.__class__.__mro__ == other.__class__.__mro__
