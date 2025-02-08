@@ -3,6 +3,8 @@
 [![tests](https://github.com/vsbits/currency/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/currency/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/vsbits/currency/graph/badge.svg?token=8mHqn1neMk)](https://codecov.io/gh/vsbits/currency)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/vsbits/currency/blob/main/LICENSE)
+
 A python package that implements currency classes to work with monetary values.
 
 ## Behavior
