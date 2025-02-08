@@ -3,16 +3,11 @@ import pytest
 
 class TestCurrency:
     @pytest.mark.parametrize(
-        ["value", "expected"],
-        [
-            [1, 1],
-            [1.0, 1],
-            [-0.1, -0.1]
-        ]
+        ["value", "expected"], [[1, 1], [1.0, 1], [-0.1, -0.1]]
     )
     def test_init(self, generic_currency, value, expected):
         v = generic_currency(value)
-        assert v.value == expected * 10 ** generic_currency.subunit_size
+        assert v.value == expected * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("value", ["1", 0.33])
     def test_init_exception(self, generic_currency, value):
@@ -38,12 +33,13 @@ class TestOperators:
             [-1, -1, True],
             [1, -1, False],
             [1, 2, False],
-        ]
+        ],
     )
     def test_eq(self, generic_currency, value1, value2, expected):
         v1 = generic_currency(value1)
         v2 = generic_currency(value2)
         assert (v1 == v2) is expected
+        assert (v1 != v2) is not expected
 
     @pytest.mark.parametrize(
         ["value1", "value2", "expected"],
@@ -54,31 +50,145 @@ class TestOperators:
             [1, 2, False],
             [1, -1, False],
             [1, "abc", False],
-            [1, "1", False]
-        ]
+            [1, "1", False],
+        ],
     )
-    def test_eq_meric(self, generic_currency, value1, value2, expected):
+    def test_eq_numeric(self, generic_currency, value1, value2, expected):
         v = generic_currency(value1)
         assert (v == value2) is expected
-
-    def test_eq_different_currencies(
-        self, generic_currency, other_generic_currency
-    ):
-        with pytest.raises(NotImplementedError):
-            _ = generic_currency(1) == other_generic_currency(1)
+        assert (v != value2) is not expected
 
     @pytest.mark.parametrize(
-        ["value1", "value2", "result"],
+        ["value1", "value2", "expected"],
         [
-            [1, 2, 3],
-            [1.5, 1.5, 3],
-            [0, 0, 0]
-        ]
+            [1, 1, False],
+            [-1, -1, False],
+            [1, -1, True],
+            [1, 2, False],
+            [1, 1.1, False],
+            [1.2, 1.1, True],
+        ],
+    )
+    def test_greater(self, value1, value2, expected, generic_currency):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (v1 > v2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, False],
+            [-1, -1, False],
+            [1, -1, True],
+            [1, 2, False],
+            [1, 1.1, False],
+            [1.2, 1.1, True],
+        ],
+    )
+    def test_greater_numeric(self, generic_currency, value1, value2, expected):
+        v = generic_currency(value1)
+        assert (v > value2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, -1, True],
+            [1, -1, True],
+            [1, 2, False],
+            [1, 1.1, False],
+            [1.2, 1.1, True],
+        ],
+    )
+    def test_ge(self, value1, value2, expected, generic_currency):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (v1 >= v2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, -1, True],
+            [1, -1, True],
+            [1, 2, False],
+            [1, 1.1, False],
+            [1.2, 1.1, True],
+        ],
+    )
+    def test_ge_numeric(self, generic_currency, value1, value2, expected):
+        v = generic_currency(value1)
+        assert (v >= value2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, False],
+            [-1, -1, False],
+            [1, -1, False],
+            [1, 2, True],
+            [1, 1.1, True],
+            [1.2, 1.1, False],
+        ],
+    )
+    def test_lesser(self, value1, value2, expected, generic_currency):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (v1 < v2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, False],
+            [-1, -1, False],
+            [1, -1, False],
+            [1, 2, True],
+            [1, 1.1, True],
+            [1.2, 1.1, False],
+        ],
+    )
+    def test_lesser_numeric(self, generic_currency, value1, value2, expected):
+        v = generic_currency(value1)
+        assert (v < value2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, -1, True],
+            [1, -1, False],
+            [1, 2, True],
+            [1, 1.1, True],
+            [1.2, 1.1, False],
+        ],
+    )
+    def test_le(self, value1, value2, expected, generic_currency):
+        v1 = generic_currency(value1)
+        v2 = generic_currency(value2)
+        assert (v1 <= v2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "expected"],
+        [
+            [1, 1, True],
+            [-1, -1, True],
+            [1, -1, False],
+            [1, 2, True],
+            [1, 1.1, True],
+            [1.2, 1.1, False],
+        ],
+    )
+    def test_le_numeric(self, generic_currency, value1, value2, expected):
+        v = generic_currency(value1)
+        assert (v <= value2) is expected
+
+    @pytest.mark.parametrize(
+        ["value1", "value2", "result"], [[1, 2, 3], [1.5, 1.5, 3], [0, 0, 0]]
     )
     def test_sum(self, generic_currency, value1, value2, result):
         total = generic_currency(value1) + generic_currency(value2)
         print(generic_currency(value2).value)
-        assert total.value == result * 10 ** generic_currency.subunit_size
+        assert total.value == result * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sum", [1, 1.0, "1"])
     def test_sum_wrong_type(self, generic_currency, to_sum):
@@ -88,15 +198,11 @@ class TestOperators:
 
     @pytest.mark.parametrize(
         ["value1", "value2", "result"],
-        [
-            [100, 1, 99],
-            [100, 200, -100],
-            [100, 0.1, 99.9]
-        ]
+        [[100, 1, 99], [100, 200, -100], [100, 0.1, 99.9]],
     )
     def test_sub(self, generic_currency, value1, value2, result):
         total = generic_currency(value1) - generic_currency(value2)
-        assert total.value == result * 10 ** generic_currency.subunit_size
+        assert total.value == result * 10**generic_currency.subunit_size
 
     @pytest.mark.parametrize("to_sub", [1, 1.0, "1"])
     def test_sub_wrong_type(self, generic_currency, to_sub):
@@ -105,17 +211,12 @@ class TestOperators:
             _ = v - to_sub
 
     @pytest.mark.parametrize(
-        ["value1", "value2", "result"],
-        [
-            [1, 2, 2],
-            [1, 2.0, 2],
-            [1, -1, -1]
-        ]
+        ["value1", "value2", "result"], [[1, 2, 2], [1, 2.0, 2], [1, -1, -1]]
     )
     def test_mul(self, generic_currency, value1, value2, result):
         v = generic_currency(value1)
         total = v * value2
-        assert total.value == result * 10 ** generic_currency.subunit_size
+        assert total.value == result * 10**generic_currency.subunit_size
 
     def test_mul_wrong_type(self, generic_currency):
         v = generic_currency(1)
@@ -131,12 +232,12 @@ class TestOperators:
             [1, 2.0, 0.5],
             [1, 3, 0.3],
             [1, -2, -0.5],
-        ]
+        ],
     )
     def test_truediv(self, generic_currency, value1, value2, result):
         v = generic_currency(value1)
         value = (v / value2).value
-        assert value == int(result * 10 ** generic_currency.subunit_size)
+        assert value == int(result * 10**generic_currency.subunit_size)
 
     @pytest.mark.parametrize(
         ["value1", "value2", "result"],
@@ -145,7 +246,7 @@ class TestOperators:
             [10, 5, 2.0],
             [1, 2, 0.5],
             [1, -1, -1.0],
-        ]
+        ],
     )
     def test_truediv_class(self, generic_currency, value1, value2, result):
         v = generic_currency(value1)
@@ -153,3 +254,29 @@ class TestOperators:
 
         value = v / div
         assert value == result
+
+
+class TestOperatorsDifferentCurrencies:
+    def test_eq(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) == other_generic_currency(1)
+
+    def test_ne(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) != other_generic_currency(1)
+
+    def test_gt(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) > other_generic_currency(1)
+
+    def test_ge(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) >= other_generic_currency(1)
+
+    def test_lt(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) < other_generic_currency(1)
+
+    def test_le(self, generic_currency, other_generic_currency):
+        with pytest.raises(NotImplementedError):
+            _ = generic_currency(1) <= other_generic_currency(1)

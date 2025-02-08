@@ -69,6 +69,54 @@ class _Currency:
             return self.value / (10**self.subunit_size) == other
         return False
 
+    def __gt__(self, other: object) -> bool:
+        if self._is_currency(other):
+            if self._is_same_currency(other) and isinstance(
+                other, self.__class__
+            ):
+                return self.value > other.value
+        elif isinstance(other, int) or isinstance(other, float):
+            return self.value / (10**self.subunit_size) > other
+        raise NotImplementedError(
+            f"Can't compare objects of classes {type(self)} and {type(other)}"
+        )
+
+    def __ge__(self, other: object) -> bool:
+        if self._is_currency(other):
+            if self._is_same_currency(other) and isinstance(
+                other, self.__class__
+            ):
+                return self.value >= other.value
+        elif isinstance(other, int) or isinstance(other, float):
+            return self.value / (10**self.subunit_size) >= other
+        raise NotImplementedError(
+            f"Can't compare objects of classes {type(self)} and {type(other)}"
+        )
+
+    def __lt__(self, other: object) -> bool:
+        if self._is_currency(other):
+            if self._is_same_currency(other) and isinstance(
+                other, self.__class__
+            ):
+                return self.value < other.value
+        elif isinstance(other, int) or isinstance(other, float):
+            return self.value / (10**self.subunit_size) < other
+        raise NotImplementedError(
+            f"Can't compare objects of classes {type(self)} and {type(other)}"
+        )
+
+    def __le__(self, other: object) -> bool:
+        if self._is_currency(other):
+            if self._is_same_currency(other) and isinstance(
+                other, self.__class__
+            ):
+                return self.value <= other.value
+        elif isinstance(other, int) or isinstance(other, float):
+            return self.value / (10**self.subunit_size) <= other
+        raise NotImplementedError(
+            f"Can't compare objects of classes {type(self)} and {type(other)}"
+        )
+
     def __add__(self, other: Self) -> Self:
         if self._is_same_currency(other):
             result = self.value + other.value
