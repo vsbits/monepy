@@ -183,10 +183,11 @@ class _Currency:
             abs_s, abs_o = abs(self), abs(other)
             result = abs_s / abs_o
             diff = abs_s - (result * abs_o)
+            value = self._new_from_subunit(diff._value)
             if other < 0:
-                return -diff
+                return -value
             else:
-                return diff
+                return value
         raise TypeError(
             f"Can't divide objects of type {self.__class__} by {other.__class__}"
         )
