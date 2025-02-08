@@ -2,6 +2,8 @@ from .base import _Currency
 
 
 class BRL(_Currency):
+    """Class to represent Brazilian real"""
+
     symbol = "R$"
     symbol_space = True
     symbol_begining = True
@@ -11,6 +13,8 @@ class BRL(_Currency):
 
 
 class EUR(_Currency):
+    """Class to represent Euro"""
+
     symbol = "€"
     symbol_space = True
     symbol_begining = False
@@ -20,6 +24,8 @@ class EUR(_Currency):
 
 
 class USD(_Currency):
+    """Class to represent US dollar"""
+
     symbol = "$"
     symbol_space = False
     symbol_begining = True
@@ -29,6 +35,8 @@ class USD(_Currency):
 
 
 class JPY(_Currency):
+    """Class to represent Japanese yen"""
+
     symbol = "¥"
     symbol_space = False
     symbol_begining = True

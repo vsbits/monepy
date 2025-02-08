@@ -17,6 +17,16 @@ class _Currency:
     subunit_sep: Optional[str]
 
     def __init__(self, value: Union[int, float]):
+        """Instatiates a new Currency object
+
+        generic e.g.:
+
+        .. code-block:: python
+
+           >>> EUR(1.5)
+           <EUR 1,50>
+
+        :param value: unit value of the currency"""
         if isinstance(value, int):
             self._value = value * 10**self.subunit_size
         elif isinstance(value, float):
@@ -170,6 +180,15 @@ class _Currency:
         raise TypeError(f"Invalid type for subunit value: {type(value)}")
 
     def formatted(self) -> str:
+        """Returns a string of the value in the currency format standard.
+
+        generic e.g.:
+
+        .. code-block:: python
+
+           >>> BRL(10).formatted()
+           'R$ 10,00'
+        """
         sep = " " if self.symbol_space else ""
         if self.symbol_begining:
             return f"{self.symbol}{sep}{self.__str__()}"
