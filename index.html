@@ -266,21 +266,53 @@ significant digits than the currency supports is provided, a <code class="docuti
 be raised.</p>
 <section id="operators">
 <h3>Operators<a class="headerlink" href="#operators" title="Link to this heading">¶</a></h3>
+<p>Only supported operators are <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<p>Operations with unsuported types will raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+<section id="the-and">
+<h4>The <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code><a class="headerlink" href="#the-and" title="Link to this heading">¶</a></h4>
 <p>Operations with <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> can only be done with currencies of the same type
 and will return an object of the same currency:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="go">&lt;USD 10.10&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
+<span class="go">&lt;USD 9.90&gt;</span>
 </pre></div>
 </div>
-<p>Trying <code class="docutils literal notranslate"><span class="pre">USD(10)</span> <span class="pre">+</span> <span class="pre">1</span></code> will raise a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+</section>
+<section id="the">
+<h4>The <code class="docutils literal notranslate"><span class="pre">*</span></code><a class="headerlink" href="#the" title="Link to this heading">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">*</span></code> is only possible with a numeric value:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mf">1.99</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">*</span> <span class="mf">1.23</span>
 <span class="go">&lt;USD 2.44&gt;</span>
 </pre></div>
 </div>
+</section>
+<section id="id1">
+<h4>The <code class="docutils literal notranslate"><span class="pre">/</span></code><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> operator is possible with both numeric and a currency of the same type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">&lt;USD 5.00&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+<span class="go">3.3333333333333335</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h4>The <code class="docutils literal notranslate"><span class="pre">%</span></code><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">%</span></code> is only supports numeric values</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="mi">15</span>
+<span class="go">&lt;USD 6.66&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">%</span> <span class="mi">15</span>
+<span class="go">&lt;USD 0.10&gt;</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="pandas-integration">
 <h3>Pandas integration<a class="headerlink" href="#pandas-integration" title="Link to this heading">¶</a></h3>
@@ -308,6 +340,10 @@ and will return an object of the same currency:</p>
 <span class="go">  product  price  quantity  subtotal</span>
 <span class="go">0       x  10,00         8     80,00</span>
 <span class="go">1       y   0,99        50     49,50</span>
+<span class="go">2       z  25,00       200  5 000,00</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">]</span>
+<span class="go">  product  price  quantity  subtotal</span>
+<span class="go">0       x  10,00         8     80,00</span>
 <span class="go">2       z  25,00       200  5 000,00</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">total</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;subtotal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The total is </span><span class="si">{</span><span class="n">total</span><span class="o">.</span><span class="n">formatted</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
@@ -400,7 +436,13 @@ and will return an object of the same currency:</p>
             <ul>
 <li><a class="reference internal" href="#">Currency</a><ul>
 <li><a class="reference internal" href="#behavior">Behavior</a><ul>
-<li><a class="reference internal" href="#operators">Operators</a></li>
+<li><a class="reference internal" href="#operators">Operators</a><ul>
+<li><a class="reference internal" href="#the-and">The <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code></a></li>
+<li><a class="reference internal" href="#the">The <code class="docutils literal notranslate"><span class="pre">*</span></code></a></li>
+<li><a class="reference internal" href="#id1">The <code class="docutils literal notranslate"><span class="pre">/</span></code></a></li>
+<li><a class="reference internal" href="#id2">The <code class="docutils literal notranslate"><span class="pre">%</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#pandas-integration">Pandas integration</a></li>
 </ul>
 </li>
