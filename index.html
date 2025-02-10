@@ -254,7 +254,7 @@
 <h2>Behavior<a class="headerlink" href="#behavior" title="Link to this heading">¶</a></h2>
 <p>The currency classes behave like a numeric type, with a <code class="docutils literal notranslate"><span class="pre">formatted()</span></code> method
 that returns the value in the currency format:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">currency</span> <span class="kn">import</span> <span class="n">USD</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">py_currency</span> <span class="kn">import</span> <span class="n">USD</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
 <span class="go">&lt;USD 10.00&gt;</span>
@@ -326,7 +326,7 @@ and will return an object of the same currency:</p>
 <h3>Pandas integration<a class="headerlink" href="#pandas-integration" title="Link to this heading">¶</a></h3>
 <p>Currency classes can be used with the <a class="reference external" href="https://pandas.pydata.org/">pandas library</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">currency</span> <span class="kn">import</span> <span class="n">EUR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">py_currency</span> <span class="kn">import</span> <span class="n">EUR</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
 <span class="gp">... </span><span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span>
 <span class="gp">... </span><span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
@@ -363,30 +363,7 @@ and will return an object of the same currency:</p>
 </section>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#currency.BRL"><code class="docutils literal notranslate"><span class="pre">BRL</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.BRL.__init__"><code class="docutils literal notranslate"><span class="pre">BRL.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.BRL.formatted"><code class="docutils literal notranslate"><span class="pre">BRL.formatted()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#currency.EUR"><code class="docutils literal notranslate"><span class="pre">EUR</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.EUR.__init__"><code class="docutils literal notranslate"><span class="pre">EUR.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.EUR.formatted"><code class="docutils literal notranslate"><span class="pre">EUR.formatted()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#currency.JPY"><code class="docutils literal notranslate"><span class="pre">JPY</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.JPY.__init__"><code class="docutils literal notranslate"><span class="pre">JPY.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.JPY.formatted"><code class="docutils literal notranslate"><span class="pre">JPY.formatted()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#currency.USD"><code class="docutils literal notranslate"><span class="pre">USD</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.USD.__init__"><code class="docutils literal notranslate"><span class="pre">USD.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#currency.USD.formatted"><code class="docutils literal notranslate"><span class="pre">USD.formatted()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#currency.sum_"><code class="docutils literal notranslate"><span class="pre">sum_()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 </div>
 
