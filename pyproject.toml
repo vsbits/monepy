@@ -1,10 +1,18 @@
 [project]
 name = "py-currency"
+description = "Currency classes to work with monetary values"
 version = "0.1"
 authors = [{ name = "Vítor dos Santos Araujo", email = "vitoraraujo@tuta.com" }]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 dynamic = ["dependencies"]
 requires-python = ">=3.11"
+
+[project.urls]
+Documentation = "https://vsbits.net/currency/"
+Repository = "https://github.com/vsbits/currency"
+Issues = "https://github.com/vsbits/currency/issues"
 
 [project.optional-dependencies]
 tests = ["flake8", "mypy", "pytest", "pytest-cov", "pandas"]
