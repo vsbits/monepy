@@ -1,18 +1,20 @@
 [project]
-name = "py-currency"
+name = "monepy"
 description = "Currency classes to work with monetary values"
-version = "0.1"
+dynamic = ["version", "dependencies"]
 authors = [{ name = "Vítor dos Santos Araujo", email = "vitoraraujo@tuta.com" }]
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-dynamic = ["dependencies"]
 requires-python = ">=3.11"
 
+[tool.hatch.version]
+path = "src/monepy/__init__.py"
+
 [project.urls]
-Documentation = "https://vsbits.net/currency/"
-Repository = "https://github.com/vsbits/currency"
-Issues = "https://github.com/vsbits/currency/issues"
+Documentation = "https://vsbits.net/monepy/"
+Repository = "https://github.com/vsbits/monepy"
+Issues = "https://github.com/vsbits/monepy/issues"
 
 [project.optional-dependencies]
 tests = ["flake8", "mypy", "pytest", "pytest-cov", "pandas"]

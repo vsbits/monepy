@@ -1,4 +1,4 @@
-from py_currency.currencies import BRL, EUR, USD, JPY
+from monepy.currency import BRL, EUR, USD, JPY
 import pytest
 
 

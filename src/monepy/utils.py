@@ -2,7 +2,7 @@ from typing import TypeVar, Sequence, TYPE_CHECKING
 
 
 if TYPE_CHECKING:
-    from .base import _Currency
+    from .currency.base import _Currency
 else:
     _Currency = "_Currency"
 
