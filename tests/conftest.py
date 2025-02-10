@@ -1,5 +1,5 @@
 import pytest
-from currency.base import _Currency
+from py_currency.base import _Currency
 
 
 @pytest.fixture()

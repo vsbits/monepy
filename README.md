@@ -22,7 +22,7 @@ The currency classes behave like a numeric type, with a `formatted()` method
 that returns the value in the currency format:
 
 ```
->>> from currency import USD
+>>> from py_currency import USD
 >>> x = USD(10)
 >>> x
 <USD 10.00>
@@ -99,7 +99,7 @@ Currency classes can be used with the [pandas library](https://pandas.pydata.org
 
 ```
 >>> import pandas as pd
->>> from currency import EUR
+>>> from py_currency import EUR
 >>> df = pd.DataFrame({
 ... "product": ["x", "y", "z"],
 ... "price": [10, 0.99, 25],

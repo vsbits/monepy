@@ -1,4 +1,4 @@
-from currency.utils import sum_
+from py_currency.utils import sum_
 import pytest
 
 

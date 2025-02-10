@@ -1,5 +1,5 @@
 [project]
-name = "currency"
+name = "py-currency"
 version = "0.1"
 authors = [{ name = "Vítor dos Santos Araujo", email = "vitoraraujo@tuta.com" }]
 readme = "README.md"
