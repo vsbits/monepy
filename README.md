@@ -1,8 +1,9 @@
 # Currency
 
 [![tests](https://github.com/vsbits/currency/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/currency/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/vsbits/currency/graph/badge.svg?token=8mHqn1neMk)](https://codecov.io/gh/vsbits/currency)
-[![CodeFactor](https://www.codefactor.io/repository/github/vsbits/currency/badge)](https://www.codefactor.io/repository/github/vsbits/currency)
+[![Codecov](https://img.shields.io/codecov/c/github/vsbits/currency?logo=codecov)
+](https://codecov.io/gh/vsbits/currency)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/vsbits/currency?logo=codefactor)](https://www.codefactor.io/repository/github/vsbits/currency)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/currency/blob/main/LICENSE)
 
