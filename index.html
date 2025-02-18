@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="api.html" />
 
     <!-- Generated with Sphinx 8.0.0 and Furo 2024.08.06 -->
-        <title>Currency 0.1 documentation</title>
+        <title>Monepy 0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Currency 0.1 documentation</div></a>
+      <a href="#"><div class="brand">Monepy 0.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">Currency 0.1 documentation</span>
+  <span class="sidebar-brand-text">Monepy 0.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -199,7 +199,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="submodules/currency.html">Currency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/utils.html">Utils</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -236,17 +240,17 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="currency">
-<h1>Currency<a class="headerlink" href="#currency" title="Link to this heading">¶</a></h1>
-<p><a class="reference external" href="https://github.com/vsbits/currency/actions/workflows/tests.yml"><img alt="tests" src="https://github.com/vsbits/currency/actions/workflows/tests.yml/badge.svg" /></a>
-<a class="reference external" href="https://codecov.io/gh/vsbits/currency"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/vsbits/currency?logo=codecov" /></a>
-<a class="reference external" href="https://www.codefactor.io/repository/github/vsbits/currency"><img alt="CodeFactor Grade" src="https://img.shields.io/codefactor/grade/github/vsbits/currency?logo=codefactor" /></a></p>
-<p><a class="reference external" href="https://github.com/vsbits/currency/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" /></a></p>
+          <section id="monepy">
+<h1>Monepy<a class="headerlink" href="#monepy" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/vsbits/monepy/actions/workflows/tests.yml"><img alt="tests" src="https://github.com/vsbits/monepy/actions/workflows/tests.yml/badge.svg" /></a>
+<a class="reference external" href="https://codecov.io/gh/vsbits/monepy"><img alt="codecov" src="https://codecov.io/gh/vsbits/monepy/graph/badge.svg?token=8mHqn1neMk" /></a>
+<a class="reference external" href="https://www.codefactor.io/repository/github/vsbits/monepy"><img alt="CodeFactor" src="https://www.codefactor.io/repository/github/vsbits/monepy/badge" /></a></p>
+<p><a class="reference external" href="https://github.com/vsbits/monepy/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" /></a></p>
 <p>A python package that implements currency classes to work with monetary values.</p>
 <section id="install">
 <h2>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h2>
 <p>From github using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vsbits</span><span class="o">/</span><span class="n">currency</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vsbits</span><span class="o">/</span><span class="n">monepy</span>
 </pre></div>
 </div>
 </section>
@@ -254,7 +258,7 @@
 <h2>Behavior<a class="headerlink" href="#behavior" title="Link to this heading">¶</a></h2>
 <p>The currency classes behave like a numeric type, with a <code class="docutils literal notranslate"><span class="pre">formatted()</span></code> method
 that returns the value in the currency format:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">py_currency</span> <span class="kn">import</span> <span class="n">USD</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy.currency</span> <span class="kn">import</span> <span class="n">USD</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
 <span class="go">&lt;USD 10.00&gt;</span>
@@ -326,7 +330,7 @@ and will return an object of the same currency:</p>
 <h3>Pandas integration<a class="headerlink" href="#pandas-integration" title="Link to this heading">¶</a></h3>
 <p>Currency classes can be used with the <a class="reference external" href="https://pandas.pydata.org/">pandas library</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">py_currency</span> <span class="kn">import</span> <span class="n">EUR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy.currency</span> <span class="kn">import</span> <span class="n">EUR</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
 <span class="gp">... </span><span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span>
 <span class="gp">... </span><span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
@@ -364,27 +368,29 @@ and will return an object of the same currency:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#py_currency.BRL"><code class="docutils literal notranslate"><span class="pre">BRL</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.BRL.__init__"><code class="docutils literal notranslate"><span class="pre">BRL.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.BRL.formatted"><code class="docutils literal notranslate"><span class="pre">BRL.formatted()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#monepy">Monepy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/currency.html">Currency</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="submodules/currency.html#base-methods">Base methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.base._Currency.__init__"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.base._Currency.formatted"><code class="docutils literal notranslate"><span class="pre">formatted()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#py_currency.EUR"><code class="docutils literal notranslate"><span class="pre">EUR</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.EUR.__init__"><code class="docutils literal notranslate"><span class="pre">EUR.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.EUR.formatted"><code class="docutils literal notranslate"><span class="pre">EUR.formatted()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="submodules/currency.html#module-monepy.currency">Available classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.BRL"><code class="docutils literal notranslate"><span class="pre">BRL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.EUR"><code class="docutils literal notranslate"><span class="pre">EUR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.JPY"><code class="docutils literal notranslate"><span class="pre">JPY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="submodules/currency.html#monepy.currency.USD"><code class="docutils literal notranslate"><span class="pre">USD</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#py_currency.JPY"><code class="docutils literal notranslate"><span class="pre">JPY</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.JPY.__init__"><code class="docutils literal notranslate"><span class="pre">JPY.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.JPY.formatted"><code class="docutils literal notranslate"><span class="pre">JPY.formatted()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#py_currency.USD"><code class="docutils literal notranslate"><span class="pre">USD</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.USD.__init__"><code class="docutils literal notranslate"><span class="pre">USD.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#py_currency.USD.formatted"><code class="docutils literal notranslate"><span class="pre">USD.formatted()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="submodules/utils.html#module-monepy.utils">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="submodules/utils.html#monepy.utils.sum_"><code class="docutils literal notranslate"><span class="pre">sum_()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#py_currency.sum_"><code class="docutils literal notranslate"><span class="pre">sum_()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -418,7 +424,7 @@ and will return an object of the same currency:</p>
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="https://github.com/vsbits/currency" aria-label="GitHub">
+              <a class="muted-link " href="https://github.com/vsbits/monepy" aria-label="GitHub">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
@@ -442,7 +448,7 @@ and will return an object of the same currency:</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Currency</a><ul>
+<li><a class="reference internal" href="#">Monepy</a><ul>
 <li><a class="reference internal" href="#install">Install</a></li>
 <li><a class="reference internal" href="#behavior">Behavior</a><ul>
 <li><a class="reference internal" href="#operators">Operators</a><ul>
