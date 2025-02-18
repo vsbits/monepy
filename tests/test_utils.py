@@ -1,4 +1,4 @@
-from py_currency.utils import sum_
+from monepy.utils import sum_
 import pytest
 
 

@@ -1,10 +1,10 @@
-# Currency
+# Monepy
 
-[![tests](https://github.com/vsbits/currency/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/currency/actions/workflows/tests.yml)
-[![Codecov](https://img.shields.io/codecov/c/github/vsbits/currency?logo=codecov)](https://codecov.io/gh/vsbits/currency)
-[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/vsbits/currency?logo=codefactor)](https://www.codefactor.io/repository/github/vsbits/currency)
+[![tests](https://github.com/vsbits/monepy/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/monepy/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/vsbits/monepy/graph/badge.svg?token=8mHqn1neMk)](https://codecov.io/gh/vsbits/monepy)
+[![CodeFactor](https://www.codefactor.io/repository/github/vsbits/monepy/badge)](https://www.codefactor.io/repository/github/vsbits/monepy)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/currency/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/monepy/blob/main/LICENSE)
 
 A python package that implements currency classes to work with monetary values.
 
@@ -13,7 +13,7 @@ A python package that implements currency classes to work with monetary values.
 From github using `pip`:
 
 ```
-pip install git+https://github.com/vsbits/currency
+pip install git+https://github.com/vsbits/monepy
 ```
 
 ## Behavior
@@ -22,7 +22,7 @@ The currency classes behave like a numeric type, with a `formatted()` method
 that returns the value in the currency format:
 
 ```
->>> from py_currency import USD
+>>> from monepy.currency import USD
 >>> x = USD(10)
 >>> x
 <USD 10.00>
@@ -99,7 +99,7 @@ Currency classes can be used with the [pandas library](https://pandas.pydata.org
 
 ```
 >>> import pandas as pd
->>> from py_currency import EUR
+>>> from monepy.currency import EUR
 >>> df = pd.DataFrame({
 ... "product": ["x", "y", "z"],
 ... "price": [10, 0.99, 25],

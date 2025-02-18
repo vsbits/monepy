@@ -31,7 +31,7 @@ class _Currency:
     `subunit_sep == 0`."""
 
     def __init__(self, value: Union[int, float]):
-        """Instatiates a new Currency object
+        """Instatiates a new Currency object.
 
         generic e.g.:
 
@@ -40,7 +40,9 @@ class _Currency:
            >>> EUR(1.5)
            <EUR 1,50>
 
-        :param value: unit value of the currency"""
+        :param value: unit value of the currency. If it has more significant
+            digits than the currency supports, will raise ``ValueError``
+        """
         if isinstance(value, int):
             self._value = value * 10**self._subunit_size
         elif isinstance(value, float):
