@@ -1,4 +1,4 @@
-from typing import TypeVar, Sequence, TYPE_CHECKING
+from typing import TypeVar, Sequence, Optional, TYPE_CHECKING
 
 
 if TYPE_CHECKING:
@@ -10,25 +10,27 @@ else:
 Currency = TypeVar("Currency", bound=_Currency)
 
 
-def sum_(items: Sequence[Currency]) -> Currency:
+def _sum(
+    items: Sequence[Currency], cls: Optional[type[Currency]] = None
+) -> Currency:
     """Equivalent to builtin `sum`.
 
     Recieves a sequence of values of the same currency, and returns an instance
-    of the same type. Raises error if sequence is empty or contains objects of
-    different types.
+    of the same type. Raises error if sequence contains objects of different
+    types.
 
     :param items: Sequence of objects of same currency
+    :param cls: Currency class expected
     """
     t = items.__class__
-    try:
-        cls = items[0].__class__
-    except IndexError:
-        raise ValueError(f"Can't sum empty {t}")
+    if cls is None:
+        try:
+            cls = items[0].__class__
+        except IndexError:
+            raise ValueError("Can't infer Currency class from empty sequence")
     acc = 0
     for i, item in enumerate(items):
-        if i == 0:
-            cls = item.__class__
-        elif item.__class__ != cls:
+        if item.__class__ != cls:
             raise ValueError(
                 "Sum aborted. "
                 f"{t} contains items of types {cls} and {item.__class__}"

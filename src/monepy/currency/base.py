@@ -1,5 +1,6 @@
-from typing import Self, Union, overload, Optional, Any
+from typing import Self, Union, overload, Optional, Any, Sequence
 from decimal import Decimal
+from ..utils import _sum
 
 
 class _Currency:
@@ -244,3 +245,12 @@ class _Currency:
         return all(
             x in other.__class__.__dict__.keys() for x in cls.__dict__.keys()
         )
+
+    @classmethod
+    def sum(cls, values: Sequence[Self]) -> Self:
+        """Equivalent to builtin ``sum``. Recieves a sequence of Currendy
+        instances, and returns its sum if all of them are from from the same
+        class calling the method
+        
+        :param values: Sequence of ``Currency`` values"""
+        return _sum(values, cls)

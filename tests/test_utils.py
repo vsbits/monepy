@@ -1,4 +1,4 @@
-from monepy.utils import sum_
+from monepy.utils import _sum
 import pytest
 
 
@@ -9,16 +9,16 @@ class TestSum:
             generic_currency(1.5),
             generic_currency(0.5),
         ]
-        total = sum_(values)
+        total = _sum(values)
         assert total.__class__ == generic_currency
         assert total._value == 30
 
     def test_wrong_types_sum(self, generic_currency, other_generic_currency):
         values = [generic_currency(1), other_generic_currency(1)]
         with pytest.raises(ValueError):
-            _ = sum_(values)
+            _ = _sum(values)
 
     def test_empty_sum(self):
         values = []
         with pytest.raises(ValueError):
-            _ = sum_(values)
+            _ = _sum(values)
