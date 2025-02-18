@@ -248,7 +248,7 @@ class _Currency:
 
     @classmethod
     def sum(cls, values: Sequence[Self]) -> Self:
-        """Equivalent to builtin ``sum``. Recieves a sequence of Currendy
+        """Equivalent to builtin ``sum``. Recieves a sequence of Currency
         instances, and returns its sum if all of them are from from the same
         class calling the method
         
