@@ -110,7 +110,7 @@ Currency classes can be used with the [pandas library](https://pandas.pydata.org
 0       x  10.00         8
 1       y   0.99        50
 2       z  25.00       200
->>> df["price"] = df["price"].apply(EUR)
+>>> df["price"] = df["price"].map(EUR, na_action="ignore")
 >>> df
   product  price  quantity
 0       x  10,00         8
