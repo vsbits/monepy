@@ -1,5 +1,3 @@
-"""Module with currency classes"""
-
 from .currencies import BRL, EUR, USD, JPY
 
 
