@@ -251,9 +251,9 @@ class _Currency:
         """Equivalent to builtin ``sum``. Recieves a sequence of Currency
         instances, and returns its sum if all of them are from from the same
         class calling the method
-        
+
         :param values: Sequence of ``Currency`` values
-        
+
         e.g.
 
         .. code-block:: python
