@@ -1,5 +1,5 @@
 [project]
-name = "monepy"
+name = "Monepy"
 description = "Currency classes to work with monetary values"
 dynamic = ["version", "dependencies"]
 authors = [{ name = "Vítor dos Santos Araujo", email = "vitoraraujo@tuta.com" }]
