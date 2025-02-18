@@ -10,7 +10,7 @@ API Reference
    :special-members: __init__
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    submodules/currency
    submodules/utils
