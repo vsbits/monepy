@@ -1,8 +1,8 @@
 # Monepy
 
 [![tests](https://github.com/vsbits/monepy/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/monepy/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/vsbits/monepy/graph/badge.svg?token=8mHqn1neMk)](https://codecov.io/gh/vsbits/monepy)
-[![CodeFactor](https://www.codefactor.io/repository/github/vsbits/monepy/badge)](https://www.codefactor.io/repository/github/vsbits/monepy)
+[![Codecov](https://img.shields.io/codecov/c/github/vsbits/monepy?logo=codecov&label=coverage)](https://codecov.io/gh/vsbits/monepy)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/vsbits/monepy?logo=codefactor&label=grade)](https://www.codefactor.io/repository/github/vsbits/monepy)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/monepy/blob/main/LICENSE)
 
