@@ -1,6 +1,3 @@
-.. autosummary::
-   :toctree: generated
-
 API Reference
 =============
 
@@ -21,3 +18,6 @@ Available classes
 
 .. automodule:: monepy.currency
    :members:
+
+.. autosummary::
+   :toctree: generated
