@@ -1,16 +1,23 @@
-API Reference
-=============
-
 .. autosummary::
    :toctree: generated
 
-.. automodule:: monepy
+API Reference
+=============
+
+Base methods
+------------
+
+All currency classes inherit the following methods from a base class:
+
+.. autofunction:: monepy.currency.base._Currency.formatted
+
+Class methods
+-------------
+
+.. autofunction:: monepy.currency.base._Currency.sum
+
+Available classes
+-----------------
+
+.. automodule:: monepy.currency
    :members:
-   :inherited-members:
-   :special-members: __init__
-
-.. toctree::
-   :maxdepth: 3
-
-   submodules/currency
-   submodules/utils

@@ -34,7 +34,7 @@ class _Currency:
     def __init__(self, value: Union[int, float]):
         """Instatiates a new Currency object.
 
-        generic e.g.:
+        e.g.
 
         .. code-block:: python
 
@@ -224,7 +224,7 @@ class _Currency:
     def formatted(self) -> str:
         """Returns a string of the value in the currency format standard.
 
-        generic e.g.:
+        e.g.
 
         .. code-block:: python
 
@@ -252,5 +252,14 @@ class _Currency:
         instances, and returns its sum if all of them are from from the same
         class calling the method
         
-        :param values: Sequence of ``Currency`` values"""
+        :param values: Sequence of ``Currency`` values
+        
+        e.g.
+
+        .. code-block:: python
+
+            >>> values = [USD(x) for x in (5, 6, 1.5)]
+            >>> USD.sum(values)
+            <USD 12.50>
+        """
         return _sum(values, cls)
