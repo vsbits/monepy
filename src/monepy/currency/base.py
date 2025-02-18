@@ -25,7 +25,7 @@ class _Currency:
     """Character used to separate each thousant unit"""
     _subunit_size: int
     """How many significant digits the currency has for its subunit
-    
+
     e.g: 2 for EUR (1,00 €) and 0 for JPY (¥ 1)"""
     _subunit_sep: Optional[str]
     """Character used to separate currency unit form subunit. None if
@@ -93,7 +93,8 @@ class _Currency:
                 return self._value == other._value
             else:
                 raise NotImplementedError(
-                    f"Can't compare objects of classes {type(self)} and {type(other)}"
+                    "Can't compare objects of classes "
+                    f"{type(self)} and {type(other)}"
                 )
         elif isinstance(other, (int, float)):
             return self._value / (10**self._subunit_size) == other
@@ -158,7 +159,8 @@ class _Currency:
             result = self._value + other._value
             return self._new_from_subunit(result)
         raise TypeError(
-            f"Can't add objects of type {self.__class__} and {other.__class__}"
+            "Can't add objects of type "
+            f"{self.__class__} and {other.__class__}"
         )
 
     def __sub__(self, other: Self) -> Self:
@@ -166,7 +168,8 @@ class _Currency:
             result = self._value - other._value
             return self._new_from_subunit(result)
         raise TypeError(
-            f"Can't subtract objects of type {self.__class__} and {other.__class__}"
+            "Can't subtract objects of type "
+            f"{self.__class__} and {other.__class__}"
         )
 
     def __mul__(self, other: Union[int, float]) -> Self:
@@ -174,7 +177,8 @@ class _Currency:
             result = int(self._value * other)
             return self._new_from_subunit(result)
         raise TypeError(
-            f"Can't multiply objects of type {self.__class__} and {other.__class__}"
+            "Can't multiply objects of type "
+            f"{self.__class__} and {other.__class__}"
         )
 
     @overload
@@ -192,7 +196,8 @@ class _Currency:
             div = int(self._value / other)
             return self._new_from_subunit(div)
         raise TypeError(
-            f"Can't divide objects of type {self.__class__} by {other.__class__}"
+            "Can't divide objects of type "
+            f"{self.__class__} by {other.__class__}"
         )
 
     def __mod__(self, other: Union[int, float]) -> Self:
@@ -206,7 +211,8 @@ class _Currency:
             else:
                 return value
         raise TypeError(
-            f"Can't divide objects of type {self.__class__} by {other.__class__}"
+            "Can't divide objects of type "
+            f"{self.__class__} by {other.__class__}"
         )
 
     def __floordiv__(self):

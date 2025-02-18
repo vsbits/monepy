@@ -1,5 +1,6 @@
 import pytest
 
+
 class TestOperators:
     @pytest.mark.parametrize(
         ["value1", "value2", "expected"],
