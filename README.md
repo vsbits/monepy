@@ -3,16 +3,18 @@
 [![tests](https://github.com/vsbits/monepy/actions/workflows/tests.yml/badge.svg)](https://github.com/vsbits/monepy/actions/workflows/tests.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/vsbits/monepy?logo=codecov&label=coverage)](https://codecov.io/gh/vsbits/monepy)
 
+[![PyPI - Version](https://img.shields.io/pypi/v/monepy?logo=pypi&color=blue)](https://pypi.org/project/Monepy/)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/vsbits/monepy/blob/main/LICENSE)
 
 A python package that implements currency classes to work with monetary values.
 
 ## Install
 
-From github using `pip`:
+From PyPI using `pip`:
 
 ```
-pip install git+https://github.com/vsbits/monepy
+pip install monepy
 ```
 
 ## Behavior
