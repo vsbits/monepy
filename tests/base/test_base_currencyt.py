@@ -56,7 +56,7 @@ class TestCurrency:
         assert (hash(v1) == hash(v2)) is expected
 
 
-class TestMethods:
+class TestSumMethod:
     def test_sum(self, generic_currency):
         values = [generic_currency(x) for x in (1, 2, 3)]
         result = generic_currency.sum(values)
@@ -68,6 +68,26 @@ class TestMethods:
         result = generic_currency.sum(values)
         assert isinstance(result, generic_currency)
         assert result == 0
+
+    def test_sum_wrong_currency(
+        self, generic_currency, other_generic_currency
+    ):
+        values = [generic_currency(x) for x in (1, 2, 3)]
+        with pytest.raises(ValueError):
+            _ = other_generic_currency(values)
+
+
+class TestMeanMethod:
+    def test_mean(self, generic_currency):
+        values = [generic_currency(x) for x in (1, 2, 3)]
+        result = generic_currency.mean(values)
+        assert isinstance(result, generic_currency)
+        assert result == 2
+
+    def test_sum_empty_list(self, generic_currency):
+        values = []
+        with pytest.raises(ValueError):
+            _ = generic_currency.mean(values)
 
     def test_sum_wrong_currency(
         self, generic_currency, other_generic_currency

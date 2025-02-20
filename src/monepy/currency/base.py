@@ -1,6 +1,6 @@
 from typing import Self, Union, overload, Optional, Any, Sequence
 from decimal import Decimal
-from ..utils import _sum
+from ..utils import _sum, _mean
 
 
 class _Currency:
@@ -269,3 +269,19 @@ class _Currency:
             <USD 12.50>
         """
         return _sum(values, cls)
+
+    @classmethod
+    def mean(cls, values: Sequence[Self]) -> Self:
+        """Arithmetic mean of a sequence of Currency instances.
+
+        :param values: Sequence of ``Currency`` values
+
+        e.g.
+
+        .. code-block:: python
+
+            >>> values = [USD(x) for x in (10, 10, 7)]
+            >>> USD.mean(values)
+            <USD 9.00>
+        """
+        return _mean(values, cls)
