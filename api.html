@@ -252,9 +252,8 @@
 </div>
 </dd></dl>
 
-</section>
 <section id="class-methods">
-<h2>Class methods<a class="headerlink" href="#class-methods" title="Link to this heading">¶</a></h2>
+<h3>Class methods<a class="headerlink" href="#class-methods" title="Link to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="monepy.currency.base._Currency.sum">
 <span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Self</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#monepy.currency.base._Currency.sum" title="Link to this definition">¶</a></dt>
@@ -274,6 +273,24 @@ class calling the method</p>
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="monepy.currency.base._Currency.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Self</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#monepy.currency.base._Currency.mean" title="Link to this definition">¶</a></dt>
+<dd><p>Arithmetic mean of a sequence of Currency instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> – Sequence of <code class="docutils literal notranslate"><span class="pre">Currency</span></code> values</p>
+</dd>
+</dl>
+<p>e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">USD</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">USD</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+<span class="go">&lt;USD 9.00&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 </section>
 <section id="module-monepy.currency">
 <span id="available-classes"></span><h2>Available classes<a class="headerlink" href="#module-monepy.currency" title="Link to this heading">¶</a></h2>
@@ -367,10 +384,11 @@ class calling the method</p>
 <li><a class="reference internal" href="#">API Reference</a><ul>
 <li><a class="reference internal" href="#base-methods">Base methods</a><ul>
 <li><a class="reference internal" href="#monepy.currency.base._Currency.formatted"><code class="docutils literal notranslate"><span class="pre">formatted()</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#class-methods">Class methods</a><ul>
 <li><a class="reference internal" href="#monepy.currency.base._Currency.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+<li><a class="reference internal" href="#monepy.currency.base._Currency.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-monepy.currency">Available classes</a><ul>
