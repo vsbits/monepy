@@ -49,7 +49,6 @@ def _mean(
     :param items: Sequence of objects of same currency
     :param cls: Currency class expected
     """
-    t = items.__class__
     empty_error = ValueError("Can't find the mean value of empty list")
     if cls is None:
         try:
