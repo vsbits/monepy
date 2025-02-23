@@ -44,7 +44,8 @@ be raised.
 
 ### Operators
 
-Only supported operators are `+`, `-`, `*` and `/`.
+Arithmetic operators are supported with numeric values and same currency
+objects, as follows:
 
 #### The `+` and `-`
 
@@ -70,28 +71,32 @@ The `*` is only possible with a numeric value:
 <USD 2.44>
 ```
 
-#### The `/`
-The `/` operator is possible with both numeric and a currency of the same type:
+#### The `/`, `//` and `%`
+Division related operators are possible with numeric and currencies of the same
+type:
 
 ```
 >>> x = USD(10)
->>> x / 2
-<USD 5.00>
 >>> y = USD(3)
 >>> x / y
 3.3333333333333335
+>>> x // y
+3
+>>> x % y
+<USD 1.00>
 ```
 
-#### The `%`
-
-The `%` is only supports numeric values
+Since currencies have a smallest unit size, any division by a numeric value
+will have the same return regardless of the operator
 
 ```
->>> x = USD(100)
->>> x / 15
-<USD 6.66>
->>> x % 15
-<USD 0.10>
+>>> x = USD(10)
+>>> x / 3
+<USD 3.33>
+>>> x // 2
+<USD 3.33>
+>>> x % 3
+<USD 0.01>
 ```
 
 ### Pandas integration
