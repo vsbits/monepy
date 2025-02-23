@@ -152,7 +152,8 @@ class _Currency:
         return self._new_from_subunit(-self._value)
 
     def __abs__(self) -> Self:
-        return self._new_from_subunit(abs(self._value))
+        value = self._value / 10 ** self._subunit_size
+        return abs(value)
 
     def __add__(self, other: Self) -> Self:
         if self._is_same_currency(other):
@@ -197,27 +198,48 @@ class _Currency:
             return self._new_from_subunit(div)
         raise TypeError(
             "Can't divide objects of type "
-            f"{self.__class__} by {other.__class__}"
+            f"{self.__class__.__name__} by {other.__class__.__name__}"
         )
 
-    def __mod__(self, other: Union[int, float]) -> Self:
+    def __mod__(self, other: Union[int, float, Self]) -> Self:
         if isinstance(other, (float, int)):
-            abs_s, abs_o = abs(self), abs(other)
-            result = abs_s / abs_o
-            diff = abs_s - (result * abs_o)
-            value = self._new_from_subunit(diff._value)
-            if other < 0:
-                return -value
-            else:
-                return value
-        raise TypeError(
-            "Can't divide objects of type "
-            f"{self.__class__} by {other.__class__}"
-        )
+            abs_s, abs_o = abs(self._value), abs(other)
+        elif (
+            isinstance(other, self.__class__)
+            and self._is_same_currency(other)
+        ):
+            abs_s, abs_o = abs(self._value), abs(other._value)
+        else:
+            raise NotImplementedError(
+                r"% operator not available with "
+                f"{other.__class__.__name__}"
+            )
 
-    def __floordiv__(self):
+        result = int(abs_s // abs_o)
+        diff = int(abs_s - (result * abs_o))
+        value = self._new_from_subunit(diff)
+        if other < 0:
+            return -value
+        else:
+            return value
+
+    @overload
+    def __floordiv__(self, other: Self) -> int: ...
+
+    @overload
+    def __floordiv__(self, other: Union[int, float]) -> Self: ...
+
+    def __floordiv__(self, other: Union[int, float, Self]) -> Union[int, Self]:
+        if (
+            isinstance(other, self.__class__)
+            and self._is_same_currency(other)
+        ):
+            return self._value // other._value
+        elif isinstance(other, (int, float)):
+            return self.__truediv__(other)
         raise NotImplementedError(
-            f"// operator not available for <{self.__class__.__name__}> class"
+            "// operator not available with "
+            f"<{other.__class__.__name__}> class"
         )
 
     @classmethod
