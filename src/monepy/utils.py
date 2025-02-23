@@ -1,4 +1,5 @@
 from typing import TypeVar, Sequence, Optional, TYPE_CHECKING
+from decimal import Decimal
 
 
 if TYPE_CHECKING:
@@ -8,6 +9,17 @@ else:
 
 
 Currency = TypeVar("Currency", bound=_Currency)
+
+
+def convert(value: Currency, currency: type[Currency]) -> Currency:
+    """Converts the currency object using pre-configured conversion rates
+    
+    :param value: Currency object
+    :param currency: New currency class to be converted to"""
+    rate = currency._get_convertion_rate(value.__class__)
+    new_value = value.as_decimal() * Decimal(rate)
+    new_value_as_subunit = int(new_value * 10 ** currency._subunit_size)
+    return currency._new_from_subunit(new_value_as_subunit)
 
 
 def _sum(

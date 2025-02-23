@@ -1,4 +1,4 @@
-from monepy.utils import _sum, _mean
+from monepy.utils import _sum, _mean, convert
 import pytest
 
 
@@ -44,3 +44,11 @@ class TestMean:
         values = []
         with pytest.raises(ValueError):
             _ = _mean(values)
+
+
+class TestConversion:
+    def test_convert(self, generic_currency, other_generic_currency):
+        v1 = generic_currency(1)
+        other_generic_currency.set_rates({"Generic": 2})
+        result = convert(v1, other_generic_currency)
+        assert result == other_generic_currency(2)
