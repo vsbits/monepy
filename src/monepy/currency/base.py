@@ -285,7 +285,7 @@ class _Currency:
            >>> BRL(10).as_decimal()
            Decimal('10')
         """
-        value: Decimal = Decimal(self._value) / 10**self._subunit_size
+        value: Decimal = Decimal(self._value) / 10 ** self._subunit_size
         return value
 
     @classmethod
