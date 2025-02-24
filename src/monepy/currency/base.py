@@ -152,16 +152,21 @@ class _Currency:
         return self._new_from_subunit(-self._value)
 
     def __abs__(self) -> Self:
-        value = self._value / 10 ** self._subunit_size
+        value = self._value / 10**self._subunit_size
         return abs(value)
 
     def __add__(self, other: Self) -> Self:
         if self._is_same_currency(other):
             result = self._value + other._value
             return self._new_from_subunit(result)
+
+        # pandas sum workaround
+        # when using sum, pd.NA is converted to 0
+        if other == 0:
+            return self
+
         raise TypeError(
-            "Can't add objects of type "
-            f"{self.__class__} and {other.__class__}"
+            f"Can't add objects of type {self.__class__} and {other.__class__}"
         )
 
     def __sub__(self, other: Self) -> Self:
@@ -204,9 +209,8 @@ class _Currency:
     def __mod__(self, other: Union[int, float, Self]) -> Self:
         if isinstance(other, (float, int)):
             abs_s, abs_o = abs(self._value), abs(other)
-        elif (
-            isinstance(other, self.__class__)
-            and self._is_same_currency(other)
+        elif isinstance(other, self.__class__) and self._is_same_currency(
+            other
         ):
             abs_s, abs_o = abs(self._value), abs(other._value)
         else:
@@ -230,10 +234,7 @@ class _Currency:
     def __floordiv__(self, other: Union[int, float]) -> Self: ...
 
     def __floordiv__(self, other: Union[int, float, Self]) -> Union[int, Self]:
-        if (
-            isinstance(other, self.__class__)
-            and self._is_same_currency(other)
-        ):
+        if isinstance(other, self.__class__) and self._is_same_currency(other):
             return self._value // other._value
         elif isinstance(other, (int, float)):
             return self.__truediv__(other)
