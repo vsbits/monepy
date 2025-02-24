@@ -1,7 +1,7 @@
 from typing import Self, Union, overload, Optional, Any, Sequence, Dict
 from decimal import Decimal
-from ..utils import _sum, _mean
-from ..exceptions import ConvertionRatesNotDefined, ConvertionRateNotFound
+from ..utils import _sum, _mean, convert
+from ..exceptions import ConversionRatesNotDefined, ConversionRateNotFound
 
 
 CurrencyRates = Dict[str, Union[Decimal]]
@@ -45,7 +45,7 @@ class _Currency:
     """Rates used for conversion between currencies"""
 
 
-    def __init__(self, value: Union[int, float]):
+    def __init__(self, value: Union[int, float, Decimal]):
         """Instatiates a new Currency object.
 
         e.g.
@@ -60,7 +60,7 @@ class _Currency:
         """
         if isinstance(value, int):
             self._value = value * 10**self._subunit_size
-        elif isinstance(value, float):
+        elif isinstance(value, (float, Decimal)):
             decimal_places = Decimal(str(value)).as_tuple().exponent
             if isinstance(decimal_places, int) and (
                 -decimal_places <= self._subunit_size
@@ -259,7 +259,7 @@ class _Currency:
     @classmethod
     def _new_from_subunit(cls, value: int) -> Self:
         if isinstance(value, int):
-            conversion = value / 10**cls._subunit_size
+            conversion = Decimal(value) / Decimal(10**cls._subunit_size)
             return cls(conversion)
         raise TypeError(f"Invalid type for subunit value: {type(value)}")
 
@@ -280,6 +280,15 @@ class _Currency:
             return f"{self.__str__()}{sep}{self._symbol}"
     
     def as_decimal(self) -> Decimal:
+        """Returns de decimal value of the currency object.
+
+        e.g.
+
+        .. code-block:: python
+
+           >>> BRL(10).as_decimal()
+           Decimal('10')
+        """
         value: Decimal = Decimal(self._value) / 10 ** self._subunit_size
         return value
 
@@ -291,14 +300,16 @@ class _Currency:
         cls._conversion_rates = d
 
     @classmethod
-    def _get_convertion_rate(cls, currency: type[Self]) -> Decimal:
+    def _get_conversion_rate(cls, currency: type[Self]) -> Decimal:
         if cls._conversion_rates is None:
-            raise ConvertionRatesNotDefined
+            if currency._conversion_rates is not None:
+                return 1 / currency._get_conversion_rate(cls)
+            raise ConversionRatesNotDefined
         currency_name = currency.__name__.upper()
         try:
             rate = cls._conversion_rates[currency_name]
         except KeyError:
-            raise ConvertionRateNotFound
+            raise ConversionRateNotFound
         return Decimal(rate)
 
     def _is_same_currency(self, other: Any) -> bool:
@@ -309,6 +320,18 @@ class _Currency:
         return all(
             x in other.__class__.__dict__.keys() for x in cls.__dict__.keys()
         )
+
+    @classmethod
+    def from_conversion(
+        cls, value: Self, base: Optional[type[Self]] = None
+    ) -> Self:
+        """Create a new instance of the by converting an instance of another
+        currency
+
+        :param value: Currency object
+        :param base: Currency class to be used as a base for conversion
+        """
+        return convert(value, cls, base)
 
     @classmethod
     def sum(cls, values: Sequence[Self]) -> Self:
