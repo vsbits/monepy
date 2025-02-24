@@ -46,10 +46,6 @@ e.g.:
 .. automodule:: monepy.utils
    :members:
 
-.. autosummary::
-   :toctree: generated
-
-
 .. _available-classes:
 
 Available classes
@@ -67,3 +63,6 @@ These currency classes can be imported directly from the ``monepy`` module:
 
 .. automodule:: monepy.currency
    :members:
+
+.. autosummary::
+   :toctree: generated
