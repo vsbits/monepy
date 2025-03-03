@@ -1,4 +1,4 @@
-from monepy import BRL, EUR, USD, JPY
+from monepy import BRL, EUR, USD, JPY, GBP
 import pytest
 
 
@@ -22,7 +22,8 @@ class TestDiffCurrencies:
         [BRL, "<BRL 1.000,00>"],
         [EUR, "<EUR 1 000,00>"],
         [USD, "<USD 1,000.00>"],
-        [JPY, "<JPY 1,000>"]
+        [JPY, "<JPY 1,000>"],
+        [GBP, "<GBP 1,000.00>"],
     ]
 )
 def test_repr(cls, result):
@@ -36,7 +37,8 @@ class TestFormat:
             [BRL, "R$ 1.000,00"],
             [EUR, "1 000,00 €"],
             [USD, "$1,000.00"],
-            [JPY, "¥1,000"]
+            [JPY, "¥1,000"],
+            [GBP, "£1,000.00"],
         ]
     )
     def test_format_negative(self, cls, result):
@@ -48,7 +50,8 @@ class TestFormat:
             [BRL, "R$ -1.000,00"],
             [EUR, "-1 000,00 €"],
             [USD, "$-1,000.00"],
-            [JPY, "¥-1,000"]
+            [JPY, "¥-1,000"],
+            [GBP, "£-1,000.00"],
         ]
     )
     def test_format(self, cls, result):
