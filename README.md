@@ -29,15 +29,8 @@ that returns the value in the currency format:
 <USD 10.00>
 >>> x.formatted()
 '$10.00'
->>> x == 1
-False
->>> x == 10
-True
->>> x > 10
-False
->>> x < 10.1
-True
 ```
+
 The class constructor does not round the values recieved. If a value with more 
 significant digits than the currency supports is provided, a `ValueError` will
 be raised.
@@ -128,7 +121,7 @@ Currency classes can be used with the [pandas library](https://pandas.pydata.org
 0       x  10,00         8     80,00
 1       y   0,99        50     49,50
 2       z  25,00       200  5 000,00
->>> df[df["price"] >= 10]
+>>> df[df["price"] >= EUR(10)]
   product  price  quantity  subtotal
 0       x  10,00         8     80,00
 2       z  25,00       200  5 000,00
