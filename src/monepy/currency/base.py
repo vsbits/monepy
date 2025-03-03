@@ -16,34 +16,33 @@ class _Currency:
     """Stored value in the smallest unit for the selected currency.
 
     e.g.: cents for USD"""
-    
+
     _symbol: str
     """Symbol used to represent the formatted currency.
 
     '$', '€', '¥' etc"""
-    
+
     _symbol_space: bool
     """Tells if there should me a space separating the symbol from the value"""
-    
+
     _symbol_begining: bool
     """Tells if the symbol should be before the value, otherwise is appended
     at the end."""
-    
+
     _thousand_sep: str
     """Character used to separate each thousant unit"""
-    
+
     _subunit_size: int
     """How many significant digits the currency has for its subunit
 
     e.g: 2 for EUR (1,00 €) and 0 for JPY (¥ 1)"""
-    
+
     _subunit_sep: Optional[str]
     """Character used to separate currency unit form subunit. None if
     `subunit_sep == 0`."""
 
     _conversion_rates: Optional[CurrencyRates] = None
     """Rates used for conversion between currencies"""
-
 
     def __init__(self, value: Union[int, float, Decimal]):
         """Instatiates a new Currency object.
@@ -275,7 +274,7 @@ class _Currency:
             return f"{self._symbol}{sep}{self.__str__()}"
         else:
             return f"{self.__str__()}{sep}{self._symbol}"
-    
+
     def as_decimal(self) -> Decimal:
         """Returns de decimal value of the currency object.
 
@@ -286,14 +285,26 @@ class _Currency:
            >>> BRL(10).as_decimal()
            Decimal('10')
         """
-        value: Decimal = Decimal(self._value) / 10 ** self._subunit_size
+        value: Decimal = Decimal(self._value) / 10**self._subunit_size
         return value
 
     @classmethod
     def set_rates(cls, rates: Dict[str, Union[int, float, Decimal]]):
-        d: CurrencyRates = {
-            k.upper(): Decimal(v) for k, v in rates.items()
-        }
+        """Set conversion rates for other currencies.
+
+
+
+        e.g.
+
+        .. code-block:: python
+
+           >>> from monepy import JPY
+           >>> JPY.set_rates({"EUR": 0.0063957, "USD": 0.0067021})
+
+        :param rates: Dictionary containing the currency class name (code) as
+                      key and the convertion rate as value.
+        """
+        d: CurrencyRates = {k.upper(): Decimal(v) for k, v in rates.items()}
         cls._conversion_rates = d
 
     @classmethod
