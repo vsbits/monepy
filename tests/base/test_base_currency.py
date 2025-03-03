@@ -7,7 +7,7 @@ class TestCurrency:
     )
     def test_init(self, generic_currency, value, expected):
         v = generic_currency(value)
-        assert v == expected
+        assert v == generic_currency(expected)
 
     @pytest.mark.parametrize("value", ["1", 0.33])
     def test_init_exception(self, generic_currency, value):
@@ -61,13 +61,13 @@ class TestSumMethod:
         values = [generic_currency(x) for x in (1, 2, 3)]
         result = generic_currency.sum(values)
         assert isinstance(result, generic_currency)
-        assert result == 6
+        assert result == generic_currency(6)
 
     def test_sum_empty_list(self, generic_currency):
         values = []
         result = generic_currency.sum(values)
         assert isinstance(result, generic_currency)
-        assert result == 0
+        assert result == generic_currency(0)
 
     def test_sum_wrong_currency(
         self, generic_currency, other_generic_currency
@@ -82,7 +82,7 @@ class TestMeanMethod:
         values = [generic_currency(x) for x in (1, 2, 3)]
         result = generic_currency.mean(values)
         assert isinstance(result, generic_currency)
-        assert result == 2
+        assert result == generic_currency(2)
 
     def test_sum_empty_list(self, generic_currency):
         values = []

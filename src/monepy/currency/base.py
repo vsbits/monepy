@@ -110,8 +110,6 @@ class _Currency:
                     "Can't compare objects of classes "
                     f"{type(self)} and {type(other)}"
                 )
-        elif isinstance(other, (int, float)):
-            return self._value / (10**self._subunit_size) == other
         return False
 
     def __gt__(self, other: object) -> bool:
@@ -120,8 +118,7 @@ class _Currency:
                 other, self.__class__
             ):
                 return self._value > other._value
-        elif isinstance(other, (int, float)):
-            return self._value / (10**self._subunit_size) > other
+
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -132,8 +129,6 @@ class _Currency:
                 other, self.__class__
             ):
                 return self._value >= other._value
-        elif isinstance(other, (int, float)):
-            return self._value / (10**self._subunit_size) >= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -144,8 +139,6 @@ class _Currency:
                 other, self.__class__
             ):
                 return self._value < other._value
-        elif isinstance(other, (int, float)):
-            return self._value / (10**self._subunit_size) < other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -156,8 +149,6 @@ class _Currency:
                 other, self.__class__
             ):
                 return self._value <= other._value
-        elif isinstance(other, (int, float)):
-            return self._value / (10**self._subunit_size) <= other
         raise NotImplementedError(
             f"Can't compare objects of classes {type(self)} and {type(other)}"
         )
@@ -221,12 +212,17 @@ class _Currency:
         )
 
     def __mod__(self, other: Union[int, float, Self]) -> Self:
+        negative = False
         if isinstance(other, (float, int)):
             abs_s, abs_o = abs(self._value), abs(other)
+            if other < 0:
+                negative = True
         elif isinstance(other, self.__class__) and self._is_same_currency(
             other
         ):
             abs_s, abs_o = abs(self._value), abs(other._value)
+            if other._value < 0:
+                negative = True
         else:
             raise NotImplementedError(
                 r"% operator not available with "
@@ -236,7 +232,7 @@ class _Currency:
         result = int(abs_s // abs_o)
         diff = int(abs_s - (result * abs_o))
         value = self._new_from_subunit(diff)
-        if other < 0:
+        if negative:
             return -value
         else:
             return value

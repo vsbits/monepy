@@ -33,8 +33,7 @@ class TestMean:
             generic_currency(30),
         ]
         total = _mean(values)
-        assert total.__class__ == generic_currency
-        assert total == 20
+        assert total == generic_currency(20)
 
     def test_wrong_types_mean(self, generic_currency, other_generic_currency):
         values = [generic_currency(1), other_generic_currency(1)]
