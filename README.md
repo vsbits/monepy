@@ -30,5 +30,5 @@ Total is $525.00
 
 ## Documentation
 
-The full documentation of the module is available at [here](https://vsbits.net/monepy).
+The full documentation of the module is available [here](https://vsbits.net/monepy).
 
