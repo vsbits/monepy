@@ -1,6 +1,10 @@
-from typing import Self, Union, overload, Optional, Any, Sequence
+from typing import Self, Union, overload, Optional, Any, Sequence, Dict
 from decimal import Decimal
-from ..utils import _sum, _mean
+from ..utils import _sum, _mean, convert
+from ..exceptions import ConversionRatesNotDefined, ConversionRateNotFound
+
+
+CurrencyRates = Dict[str, Union[Decimal]]
 
 
 class _Currency:
@@ -12,26 +16,35 @@ class _Currency:
     """Stored value in the smallest unit for the selected currency.
 
     e.g.: cents for USD"""
+
     _symbol: str
     """Symbol used to represent the formatted currency.
 
     '$', '€', '¥' etc"""
+
     _symbol_space: bool
     """Tells if there should me a space separating the symbol from the value"""
+
     _symbol_begining: bool
     """Tells if the symbol should be before the value, otherwise is appended
     at the end."""
+
     _thousand_sep: str
     """Character used to separate each thousant unit"""
+
     _subunit_size: int
     """How many significant digits the currency has for its subunit
 
     e.g: 2 for EUR (1,00 €) and 0 for JPY (¥ 1)"""
+
     _subunit_sep: Optional[str]
     """Character used to separate currency unit form subunit. None if
     `subunit_sep == 0`."""
 
-    def __init__(self, value: Union[int, float]):
+    _conversion_rates: Optional[CurrencyRates] = None
+    """Rates used for conversion between currencies"""
+
+    def __init__(self, value: Union[int, float, Decimal]):
         """Instatiates a new Currency object.
 
         e.g.
@@ -46,7 +59,7 @@ class _Currency:
         """
         if isinstance(value, int):
             self._value = value * 10**self._subunit_size
-        elif isinstance(value, float):
+        elif isinstance(value, (float, Decimal)):
             decimal_places = Decimal(str(value)).as_tuple().exponent
             if isinstance(decimal_places, int) and (
                 -decimal_places <= self._subunit_size
@@ -242,7 +255,7 @@ class _Currency:
     @classmethod
     def _new_from_subunit(cls, value: int) -> Self:
         if isinstance(value, int):
-            conversion = value / 10**cls._subunit_size
+            conversion = Decimal(value) / Decimal(10**cls._subunit_size)
             return cls(conversion)
         raise TypeError(f"Invalid type for subunit value: {type(value)}")
 
@@ -262,6 +275,51 @@ class _Currency:
         else:
             return f"{self.__str__()}{sep}{self._symbol}"
 
+    def as_decimal(self) -> Decimal:
+        """Returns de decimal value of the currency object.
+
+        e.g.
+
+        .. code-block:: python
+
+           >>> BRL(10).as_decimal()
+           Decimal('10')
+        """
+        value: Decimal = Decimal(self._value) / 10 ** self._subunit_size
+        return value
+
+    @classmethod
+    def set_rates(cls, rates: Dict[str, Union[int, float, Decimal]]):
+        """Set conversion rates for other currencies.
+
+
+
+        e.g.
+
+        .. code-block:: python
+
+           >>> from monepy import JPY
+           >>> JPY.set_rates({"EUR": 0.0063957, "USD": 0.0067021})
+
+        :param rates: Dictionary containing the currency class name (code) as
+                      key and the convertion rate as value.
+        """
+        d: CurrencyRates = {k.upper(): Decimal(v) for k, v in rates.items()}
+        cls._conversion_rates = d
+
+    @classmethod
+    def _get_conversion_rate(cls, currency: type[Self]) -> Decimal:
+        if cls._conversion_rates is None:
+            if currency._conversion_rates is not None:
+                return 1 / currency._get_conversion_rate(cls)
+            raise ConversionRatesNotDefined
+        currency_name = currency.__name__.upper()
+        try:
+            rate = cls._conversion_rates[currency_name]
+        except KeyError:
+            raise ConversionRateNotFound
+        return Decimal(rate)
+
     def _is_same_currency(self, other: Any) -> bool:
         return self.__class__.__mro__ == other.__class__.__mro__
 
@@ -270,6 +328,18 @@ class _Currency:
         return all(
             x in other.__class__.__dict__.keys() for x in cls.__dict__.keys()
         )
+
+    @classmethod
+    def from_conversion(
+        cls, value: Self, base: Optional[type[Self]] = None
+    ) -> Self:
+        """Create a new instance of the by converting an instance of another
+        currency
+
+        :param value: Currency object
+        :param base: Currency class to be used as a base for conversion
+        """
+        return convert(value, cls, base)
 
     @classmethod
     def sum(cls, values: Sequence[Self]) -> Self:

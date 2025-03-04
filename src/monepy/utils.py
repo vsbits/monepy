@@ -1,4 +1,5 @@
 from typing import TypeVar, Sequence, Optional, TYPE_CHECKING
+from decimal import Decimal
 
 
 if TYPE_CHECKING:
@@ -7,7 +8,43 @@ else:
     _Currency = "_Currency"
 
 
+__all__ = ["convert"]
+
+
 Currency = TypeVar("Currency", bound=_Currency)
+
+
+def convert(
+    value: Currency,
+    currency: type[Currency],
+    base: Optional[type[Currency]] = None
+) -> Currency:
+    """Converts the currency object using pre-configured conversion rates.
+
+    .. code-block:: python
+
+        >>> convert(USD(10), EUR)
+        <EUR 9,49>
+
+    When using a base currency, the value will be first converted to the base,
+    considering it's smallest subunit, and then converted to the desired
+    currency.
+
+    .. code-block:: python
+
+        >>> convert(USD(10), EUR, base=JPY)
+        <EUR 9,54>
+
+    :param value: Currency object
+    :param currency: New currency class to be converted to
+    :param base: Currency class to be used as a base for conversion"""
+    if base is not None:
+        middle_value = convert(value, base)
+        return convert(middle_value, currency)
+    rate = currency._get_conversion_rate(value.__class__)
+    new_value = value.as_decimal() / Decimal(rate)
+    new_value_as_subunit = int(new_value * 10 ** currency._subunit_size)
+    return currency._new_from_subunit(new_value_as_subunit)
 
 
 def _sum(
