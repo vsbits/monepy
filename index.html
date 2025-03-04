@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="api.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="User guide" href="guide.html" />
 
     <!-- Generated with Sphinx 8.0.0 and Furo 2024.08.06 -->
-        <title>Monepy 0.2 documentation</title>
+        <title>Monepy 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Monepy 0.2 documentation</div></a>
+      <a href="#"><div class="brand">Monepy 0.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">Monepy 0.2 documentation</span>
+  <span class="sidebar-brand-text">Monepy 0.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -199,6 +199,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
@@ -243,139 +244,75 @@
 <p><a class="reference external" href="https://pypi.org/project/Monepy/"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/monepy?logo=pypi&amp;color=blue" /></a></p>
 <p><a class="reference external" href="https://github.com/vsbits/monepy/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green.svg" /></a></p>
 <p>A python package that implements currency classes to work with monetary values.</p>
-<section id="install">
-<h2>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h2>
-<p>From PyPI using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">monepy</span>
-</pre></div>
-</div>
-</section>
-<section id="behavior">
-<h2>Behavior<a class="headerlink" href="#behavior" title="Link to this heading">¶</a></h2>
-<p>The currency classes behave like a numeric type, with a <code class="docutils literal notranslate"><span class="pre">formatted()</span></code> method
-that returns the value in the currency format:</p>
+<p>It behaves like a numeric class under the hood is an easy way to work with
+money:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy</span> <span class="kn">import</span> <span class="n">USD</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
-<span class="go">&lt;USD 10.00&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">formatted</span><span class="p">()</span>
-<span class="go">&#39;$10.00&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="go">&lt;USD 500.00&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10</span>
-<span class="go">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">&lt;</span> <span class="mf">10.1</span>
-<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span>
+<span class="go">&lt;USD 525.00&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total is </span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">formatted</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">Total is $525.00</span>
 </pre></div>
 </div>
-<p>The class constructor does not round the values recieved. If a value with more
-significant digits than the currency supports is provided, a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> will
-be raised.</p>
-<section id="operators">
-<h3>Operators<a class="headerlink" href="#operators" title="Link to this heading">¶</a></h3>
-<p>Only supported operators are <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
-<section id="the-and">
-<h4>The <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code><a class="headerlink" href="#the-and" title="Link to this heading">¶</a></h4>
-<p>Operations with <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> can only be done with currencies of the same type
-and will return an object of the same currency:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="go">&lt;USD 10.10&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
-<span class="go">&lt;USD 9.90&gt;</span>
-</pre></div>
-</div>
-</section>
-<section id="the">
-<h4>The <code class="docutils literal notranslate"><span class="pre">*</span></code><a class="headerlink" href="#the" title="Link to this heading">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">*</span></code> is only possible with a numeric value:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mf">1.99</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">*</span> <span class="mf">1.23</span>
-<span class="go">&lt;USD 2.44&gt;</span>
-</pre></div>
-</div>
-</section>
-<section id="id1">
-<h4>The <code class="docutils literal notranslate"><span class="pre">/</span></code><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> operator is possible with both numeric and a currency of the same type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="go">&lt;USD 5.00&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
-<span class="go">3.3333333333333335</span>
-</pre></div>
-</div>
-</section>
-<section id="id2">
-<h4>The <code class="docutils literal notranslate"><span class="pre">%</span></code><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">%</span></code> is only supports numeric values</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">/</span> <span class="mi">15</span>
-<span class="go">&lt;USD 6.66&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">%</span> <span class="mi">15</span>
-<span class="go">&lt;USD 0.10&gt;</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="pandas-integration">
-<h3>Pandas integration<a class="headerlink" href="#pandas-integration" title="Link to this heading">¶</a></h3>
-<p>Currency classes can be used with the <a class="reference external" href="https://pandas.pydata.org/">pandas library</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy</span> <span class="kn">import</span> <span class="n">EUR</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-<span class="gp">... </span><span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span>
-<span class="gp">... </span><span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
-<span class="gp">... </span><span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>
-<span class="gp">... </span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span>
-<span class="go">  product  price  quantity</span>
-<span class="go">0       x  10.00         8</span>
-<span class="go">1       y   0.99        50</span>
-<span class="go">2       z  25.00       200</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">EUR</span><span class="p">,</span> <span class="n">na_action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span>
-<span class="go">  product  price  quantity</span>
-<span class="go">0       x  10,00         8</span>
-<span class="go">1       y   0,99        50</span>
-<span class="go">2       z  25,00       200</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;subtotal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;quantity&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span>
-<span class="go">  product  price  quantity  subtotal</span>
-<span class="go">0       x  10,00         8     80,00</span>
-<span class="go">1       y   0,99        50     49,50</span>
-<span class="go">2       z  25,00       200  5 000,00</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">]</span>
-<span class="go">  product  price  quantity  subtotal</span>
-<span class="go">0       x  10,00         8     80,00</span>
-<span class="go">2       z  25,00       200  5 000,00</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">total</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;subtotal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The total is </span><span class="si">{</span><span class="n">total</span><span class="o">.</span><span class="n">formatted</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-<span class="go">The total is 5 129,50 €.</span>
-</pre></div>
-</div>
-</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
+<p>The full documentation of the module is available at <a class="reference external" href="https://vsbits.net/monepy">here</a>.</p>
 </section>
 </section>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide.html#instance-behavior">Instance behavior</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide.html#operations">Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide.html#the-and">The <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide.html#the">The <code class="docutils literal notranslate"><span class="pre">*</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide.html#id1">The <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code> and <code class="docutils literal notranslate"><span class="pre">%</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide.html#curreny-conversion">Curreny conversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide.html#setting-up-exchange-rates">Setting up exchange rates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide.html#converting-currencies">Converting currencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide.html#using-a-base-currency">Using a base currency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide.html#other-tools">Other tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide.html#pandas-integration">Pandas integration</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#base-methods">Base methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.base._Currency.formatted"><code class="docutils literal notranslate"><span class="pre">formatted()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#currency-classes">Currency classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#base-methods">Base methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.formatted"><code class="docutils literal notranslate"><span class="pre">formatted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.as_decimal"><code class="docutils literal notranslate"><span class="pre">as_decimal()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#class-methods">Class methods</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.set_rates"><code class="docutils literal notranslate"><span class="pre">set_rates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.html#monepy.currency.base._Currency.from_conversion"><code class="docutils literal notranslate"><span class="pre">from_conversion()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#module-monepy.currency">Available classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#monepy.utils.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#available-classes">Available classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.BRL"><code class="docutils literal notranslate"><span class="pre">BRL</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.EUR"><code class="docutils literal notranslate"><span class="pre">EUR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.GBP"><code class="docutils literal notranslate"><span class="pre">GBP</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.JPY"><code class="docutils literal notranslate"><span class="pre">JPY</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api.html#monepy.currency.USD"><code class="docutils literal notranslate"><span class="pre">USD</span></code></a></li>
 </ul>
@@ -390,12 +327,12 @@ and will return an object of the same currency:</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="api.html">
+          <a class="next-page" href="guide.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">API Reference</div>
+                <div class="title">User guide</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -438,18 +375,7 @@ and will return an object of the same currency:</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Monepy</a><ul>
-<li><a class="reference internal" href="#install">Install</a></li>
-<li><a class="reference internal" href="#behavior">Behavior</a><ul>
-<li><a class="reference internal" href="#operators">Operators</a><ul>
-<li><a class="reference internal" href="#the-and">The <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code></a></li>
-<li><a class="reference internal" href="#the">The <code class="docutils literal notranslate"><span class="pre">*</span></code></a></li>
-<li><a class="reference internal" href="#id1">The <code class="docutils literal notranslate"><span class="pre">/</span></code></a></li>
-<li><a class="reference internal" href="#id2">The <code class="docutils literal notranslate"><span class="pre">%</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#pandas-integration">Pandas integration</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -461,7 +387,7 @@ and will return an object of the same currency:</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=10f1778b"></script>
+</div><script src="_static/documentation_options.js?v=7f00635f"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

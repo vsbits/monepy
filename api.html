@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Monepy" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="User guide" href="guide.html" />
 
     <!-- Generated with Sphinx 8.0.0 and Furo 2024.08.06 -->
-        <title>API Reference - Monepy 0.2 documentation</title>
+        <title>API Reference - Monepy 0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
@@ -166,7 +166,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">Monepy 0.2 documentation</div></a>
+      <a href="index.html"><div class="brand">Monepy 0.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -190,7 +190,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">Monepy 0.2 documentation</span>
+  <span class="sidebar-brand-text">Monepy 0.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -199,6 +199,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guide.html">User guide</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">API Reference</a></li>
 </ul>
 
@@ -236,11 +237,16 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="api-reference">
-<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
+          <section id="module-monepy">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-monepy" title="Link to this heading">¶</a></h1>
+<section id="currency-classes">
+<h2>Currency classes<a class="headerlink" href="#currency-classes" title="Link to this heading">¶</a></h2>
+<p>All currency classes inherit methods from a base Currency class.</p>
+<p>A list of available currency classes can be found
+<a class="reference internal" href="#available-classes"><span class="std std-ref">here</span></a>.</p>
 <section id="base-methods">
-<h2>Base methods<a class="headerlink" href="#base-methods" title="Link to this heading">¶</a></h2>
-<p>All currency classes inherit the following methods from a base class:</p>
+<h3>Base methods<a class="headerlink" href="#base-methods" title="Link to this heading">¶</a></h3>
+<p>The following methods are for use with the currency instance:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="monepy.currency.base._Currency.formatted">
 <span class="sig-name descname"><span class="pre">formatted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#monepy.currency.base._Currency.formatted" title="Link to this definition">¶</a></dt>
@@ -252,6 +258,18 @@
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="monepy.currency.base._Currency.as_decimal">
+<span class="sig-name descname"><span class="pre">as_decimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decimal</span></span></span><a class="headerlink" href="#monepy.currency.base._Currency.as_decimal" title="Link to this definition">¶</a></dt>
+<dd><p>Returns de decimal value of the currency object.</p>
+<p>e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BRL</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_decimal</span><span class="p">()</span>
+<span class="go">Decimal(&#39;10&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 <section id="class-methods">
 <h3>Class methods<a class="headerlink" href="#class-methods" title="Link to this heading">¶</a></h3>
 <dl class="py function">
@@ -290,31 +308,118 @@ class calling the method</p>
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="monepy.currency.base._Currency.set_rates">
+<span class="sig-name descname"><span class="pre">set_rates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.base._Currency.set_rates" title="Link to this definition">¶</a></dt>
+<dd><p>Set conversion rates for other currencies.</p>
+<p>e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy</span> <span class="kn">import</span> <span class="n">JPY</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">JPY</span><span class="o">.</span><span class="n">set_rates</span><span class="p">({</span><span class="s2">&quot;EUR&quot;</span><span class="p">:</span> <span class="mf">0.0063957</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">:</span> <span class="mf">0.0067021</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rates</strong> – Dictionary containing the currency class name (code) as
+key and the convertion rate as value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monepy.currency.base._Currency.from_conversion">
+<span class="sig-name descname"><span class="pre">from_conversion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">Self</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#monepy.currency.base._Currency.from_conversion" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new instance of the by converting an instance of another
+currency</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Currency object</p></li>
+<li><p><strong>base</strong> – Currency class to be used as a base for conversion</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
-<section id="module-monepy.currency">
-<span id="available-classes"></span><h2>Available classes<a class="headerlink" href="#module-monepy.currency" title="Link to this heading">¶</a></h2>
-<dl class="py class">
+<section id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Link to this heading">¶</a></h2>
+<p>Those are available functions to use with Currency classes, and can be imported
+from <code class="docutils literal notranslate"><span class="pre">monepy.utils</span></code>.</p>
+<p>e.g.:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy.utils</span> <span class="kn">import</span> <span class="n">convert</span>
+<span class="gp">... </span> <span class="c1"># Import currencies and set conversion rates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">EUR</span><span class="p">)</span>
+<span class="go">&lt;EUR 9,49&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="py function" id="module-monepy.utils">
+<dt class="sig sig-object py" id="monepy.utils.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Currency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">Currency</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">Currency</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Currency</span></span></span><a class="headerlink" href="#monepy.utils.convert" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the currency object using pre-configured conversion rates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">EUR</span><span class="p">)</span>
+<span class="go">&lt;EUR 9,49&gt;</span>
+</pre></div>
+</div>
+<p>When using a base currency, the value will be first converted to the base,
+considering it’s smallest subunit, and then converted to the desired
+currency.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convert</span><span class="p">(</span><span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">EUR</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">JPY</span><span class="p">)</span>
+<span class="go">&lt;EUR 9,54&gt;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Currency object</p></li>
+<li><p><strong>currency</strong> – New currency class to be converted to</p></li>
+<li><p><strong>base</strong> – Currency class to be used as a base for conversion</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="available-classes">
+<span id="id1"></span><h2>Available classes<a class="headerlink" href="#available-classes" title="Link to this heading">¶</a></h2>
+<p>These currency classes can be imported directly from the <code class="docutils literal notranslate"><span class="pre">monepy</span></code> module:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">monepy</span> <span class="kn">import</span> <span class="n">USD</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">USD</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">&lt;USD 10.00&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="py class" id="module-monepy.currency">
 <dt class="sig sig-object py" id="monepy.currency.BRL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BRL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.BRL" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BRL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.BRL" title="Link to this definition">¶</a></dt>
 <dd><p>Class to represent Brazilian real</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="monepy.currency.EUR">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EUR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.EUR" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EUR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.EUR" title="Link to this definition">¶</a></dt>
 <dd><p>Class to represent Euro</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="monepy.currency.GBP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GBP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.GBP" title="Link to this definition">¶</a></dt>
+<dd><p>Class to represent UK Sterling</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="monepy.currency.JPY">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JPY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.JPY" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JPY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.JPY" title="Link to this definition">¶</a></dt>
 <dd><p>Class to represent Japanese yen</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="monepy.currency.USD">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">USD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.USD" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">USD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#monepy.currency.USD" title="Link to this definition">¶</a></dt>
 <dd><p>Class to represent US dollar</p>
 </dd></dl>
 
@@ -333,14 +438,14 @@ class calling the method</p>
         
         <div class="related-pages">
           
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="guide.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">User guide</div>
                 
               </div>
             </a>
@@ -382,18 +487,29 @@ class calling the method</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">API Reference</a><ul>
+<li><a class="reference internal" href="#currency-classes">Currency classes</a><ul>
 <li><a class="reference internal" href="#base-methods">Base methods</a><ul>
 <li><a class="reference internal" href="#monepy.currency.base._Currency.formatted"><code class="docutils literal notranslate"><span class="pre">formatted()</span></code></a></li>
+<li><a class="reference internal" href="#monepy.currency.base._Currency.as_decimal"><code class="docutils literal notranslate"><span class="pre">as_decimal()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#class-methods">Class methods</a><ul>
 <li><a class="reference internal" href="#monepy.currency.base._Currency.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
 <li><a class="reference internal" href="#monepy.currency.base._Currency.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li><a class="reference internal" href="#monepy.currency.base._Currency.set_rates"><code class="docutils literal notranslate"><span class="pre">set_rates()</span></code></a></li>
+<li><a class="reference internal" href="#monepy.currency.base._Currency.from_conversion"><code class="docutils literal notranslate"><span class="pre">from_conversion()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-monepy.currency">Available classes</a><ul>
+<li><a class="reference internal" href="#utils">Utils</a><ul>
+<li><a class="reference internal" href="#monepy.utils.convert"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#available-classes">Available classes</a><ul>
 <li><a class="reference internal" href="#monepy.currency.BRL"><code class="docutils literal notranslate"><span class="pre">BRL</span></code></a></li>
 <li><a class="reference internal" href="#monepy.currency.EUR"><code class="docutils literal notranslate"><span class="pre">EUR</span></code></a></li>
+<li><a class="reference internal" href="#monepy.currency.GBP"><code class="docutils literal notranslate"><span class="pre">GBP</span></code></a></li>
 <li><a class="reference internal" href="#monepy.currency.JPY"><code class="docutils literal notranslate"><span class="pre">JPY</span></code></a></li>
 <li><a class="reference internal" href="#monepy.currency.USD"><code class="docutils literal notranslate"><span class="pre">USD</span></code></a></li>
 </ul>
@@ -409,7 +525,7 @@ class calling the method</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=10f1778b"></script>
+</div><script src="_static/documentation_options.js?v=7f00635f"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
